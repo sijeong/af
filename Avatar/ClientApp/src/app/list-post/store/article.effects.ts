@@ -3,7 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AppState } from '../../root-store';
 import { ArticleService } from 'src/app/services/article.service';
 import { Store, select } from '@ngrx/store';
-import { RequestArticles, ArticleActionTypes, LoadArticles, DeleteArticles, DeleteArticlesSuccess, DeleteArticle, DeleteArticleSuccess } from './article.actions';
+import { RequestArticles, ArticleActionTypes, LoadArticles, DeleteArticles, DeleteArticlesSuccess, DeleteArticle, DeleteArticleSuccess, UpsertArticle, UpdateArticle, UpdateArticleSuccess } from './article.actions';
 import { withLatestFrom, mergeMap, catchError, map, tap, switchMap } from 'rxjs/operators';
 import { selectAllArticles } from './article.reducer';
 import { throwError } from 'rxjs';
@@ -26,7 +26,13 @@ export class ArticleEffects {
     map(articles => new LoadArticles({ articles })),
     catchError(this.handleError)
   )
-
+  @Effect()
+  updateArticle$ = this.actions$.pipe(
+    ofType<UpsertArticle>(ArticleActionTypes.UpsertArticle),
+    switchMap(a => this.service.updateArticle(a.payload.article)),
+    map(b => new UpdateArticleSuccess())
+  )
+  
   @Effect()
   deleteArticle$ = this.actions$.pipe(
     ofType<DeleteArticle>(ArticleActionTypes.DeleteArticle),

@@ -3,8 +3,6 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError, of } from 'rxjs';
 import { Article } from '../list-post/store/article.model';
 import { catchError, tap } from 'rxjs/operators';
-import { Employee } from './signalr.service';
-import { handleNull } from 'ts-enum-util';
 
 @Injectable({
   providedIn: 'root'
@@ -34,15 +32,15 @@ export class ArticleService {
     );
   }
   updateArticle(article: Article): Observable<Article> {
-    return this.http.put<Article>(this.baseUrl + this.apiUrl + '/', article).pipe(
+    return this.http.post<Article>(this.baseUrl + this.apiUrl + '/' + article.id, article).pipe(
 
     );
   }
-  deleteArticle(id: string): Observable<number> {
+  deleteArticle(id: number): Observable<number> {
     return this.http.delete<number>(this.baseUrl + this.apiUrl + '/d/' + id);
   }
 
-  deleteArticles(ids: string[]): Observable<number[]> {
+  deleteArticles(ids: number[]): Observable<number[]> {
     console.log('delete called')
     ids.map(id => 'id')
     const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }

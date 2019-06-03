@@ -30,6 +30,8 @@ import { EffectsModule } from '@ngrx/effects';
 import { ArticleEffects } from './list-post/store/article.effects';
 import { ConnectFormDirective } from './edit-post/connect-form.directive';
 import { ViewPostComponent } from './view-post/view-post.component';
+import { CategoryPipe } from './models/category.pipe';
+import { SubCategoryPipe } from './models/sub-category.pipe';
 
 @NgModule({
   declarations: [
@@ -42,7 +44,9 @@ import { ViewPostComponent } from './view-post/view-post.component';
     RealtimeTableComponent,
     ListPostComponent,
     ConnectFormDirective,
-    ViewPostComponent
+    ViewPostComponent,
+    CategoryPipe,
+    SubCategoryPipe
   ],
   imports: [
     BrowserAnimationsModule,
@@ -69,7 +73,7 @@ import { ViewPostComponent } from './view-post/view-post.component';
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'article', component: ListPostComponent },
       { path: 'calendar', component: MonthlyCalendarComponent },
-      { path: 'viewer', component: ViewPostComponent },
+      { path: 'viewer/:id', component: ViewPostComponent },
       { path: 'editor/:id', component: EditPostComponent }
     ]),
     StoreModule.forFeature('article', articleReducer),

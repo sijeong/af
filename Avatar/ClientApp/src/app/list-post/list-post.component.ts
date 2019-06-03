@@ -11,7 +11,15 @@ import { $enum } from 'ts-enum-util'
 import { getToken } from '@angular/router/src/utils/preactivation';
 import { FormBuilder } from '@angular/forms';
 import { ArticleService } from '../services/article.service';
-import { tap } from 'rxjs/operators';
+import {
+  category,
+  articleLiteratureCategory,
+  articleMathematicsCategory,
+  articleScienceCateory,
+  // categoryParser,
+  // subCategoryParser
+} from '../models/category';
+
 @Component({
   selector: 'app-list-post',
   templateUrl: './list-post.component.html',
@@ -85,31 +93,16 @@ export class ListPostComponent implements OnInit {
     this.gridOptions = <GridOptions>{}
     this.gridOptions.onRowClicked = (params) => {
       console.log(params.data.id)
-      this.router.navigate(['/editor', params.data.id])
+      this.router.navigate(['/viewer', params.data.id])
     }
     /// trace selection state !!!
+    
+    
   }
 
   ngOnInit() {
     this.store.dispatch(new RequestArticles());
   }
-
-  categoryParser(params) {
-
-    return $enum(category).getKeyOrDefault(params.data.category.trim()).toString()
-
-  }
-  subCategoryParser(params) {
-    const val = params.data.subCategory.trim()
-    if (Object.keys(articleLiteratureCategory).some(x => x == $enum(articleLiteratureCategory).getKeyOrDefault(val))) {
-      return $enum(articleLiteratureCategory).getKeyOrDefault(val).toString()
-    } else if (Object.keys(articleMathematicsCategory).some(x => x == $enum(articleMathematicsCategory).getKeyOrDefault(val))) {
-      return $enum(articleMathematicsCategory).getKeyOrDefault(val).toString()
-    } else if (Object.keys(articleScienceCateory).some(x => x == $enum(articleScienceCateory).getKeyOrDefault(val))) {
-      return $enum(articleScienceCateory).getKeyOrDefault(val).toString()
-    }
-  }
-
   submit() {
 
   }
@@ -119,31 +112,21 @@ export class ListPostComponent implements OnInit {
   delete() {
     this.store.dispatch(new DeleteArticles({ ids: this.getSelectedRows() }));
   }
-  create(){
+  create() {
 
+  }
+  categoryParser = (params) => {
+    return $enum(category).getKeyOrDefault(params.data.category.trim()).toString()
+  }
+  subCategoryParser = (params) => {
+    const val = params.data.subCategory.trim()
+    if (Object.keys(articleLiteratureCategory).some(x => x == $enum(articleLiteratureCategory).getKeyOrDefault(val))) {
+      return $enum(articleLiteratureCategory).getKeyOrDefault(val).toString()
+    } else if (Object.keys(articleMathematicsCategory).some(x => x == $enum(articleMathematicsCategory).getKeyOrDefault(val))) {
+      return $enum(articleMathematicsCategory).getKeyOrDefault(val).toString()
+    } else if (Object.keys(articleScienceCateory).some(x => x == $enum(articleScienceCateory).getKeyOrDefault(val))) {
+      return $enum(articleScienceCateory).getKeyOrDefault(val).toString()
+    }
   }
 }
 
-export enum category {
-  Science = 'SC',
-  Literature = 'LT',
-  Mathematics = 'MT'
-}
-
-export enum articleScienceCateory {
-  Physics = 'PY',
-  Chemistry = 'CM',
-  Psychology = 'PS'
-}
-
-export enum articleLiteratureCategory {
-  Novel = 'NV',
-  Essay = 'ES',
-  BioGraphy = 'BG'
-}
-
-export enum articleMathematicsCategory {
-  Geometry = 'GM',
-  NumberTheory = 'NT',
-  Topology = 'TO'
-}

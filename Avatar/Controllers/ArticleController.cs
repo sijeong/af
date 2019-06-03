@@ -50,7 +50,7 @@ namespace Avatar.Controllers
             return CreatedAtAction(nameof(GetArticle), new { id = article.Id }, article);
         }
 
-        [HttpPut("{id}")]
+        [HttpPost("{id}")]
         public async Task<IActionResult> PutArticle(int id, Article article)
         {
             if (id != article.Id)

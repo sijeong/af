@@ -10,6 +10,7 @@ export enum ArticleActionTypes {
   AddArticles = '[Article] Add Articles',
   UpsertArticles = '[Article] Upsert Articles',
   UpdateArticle = '[Article] Update Article',
+  UpdateArticleSuccess = '[Article] Update Article Success',
   UpdateArticles = '[Article] Update Articles',
   DeleteArticle = '[Article] Delete Article',
   DeleteArticleSuccess = '[Article] Delete Article Success',
@@ -56,7 +57,11 @@ export class UpdateArticle implements Action {
 
   constructor(public payload: { article: Update<Article> }) { }
 }
+export class UpdateArticleSuccess implements Action {
+  readonly type = ArticleActionTypes.UpdateArticleSuccess;
 
+  // constructor(public payload: { article: Update<Article> }) { }
+}
 export class UpdateArticles implements Action {
   readonly type = ArticleActionTypes.UpdateArticles;
 
@@ -66,7 +71,7 @@ export class UpdateArticles implements Action {
 export class DeleteArticle implements Action {
   readonly type = ArticleActionTypes.DeleteArticle;
 
-  constructor(public payload: { id: string }) { }
+  constructor(public payload: { id: number }) { }
 }
 export class DeleteArticleSuccess implements Action {
   readonly type = ArticleActionTypes.DeleteArticleSuccess;
@@ -77,7 +82,7 @@ export class DeleteArticleSuccess implements Action {
 export class DeleteArticles implements Action {
   readonly type = ArticleActionTypes.DeleteArticles;
 
-  constructor(public payload: { ids: string[] }) { }
+  constructor(public payload: { ids: number[] }) { }
 }
 export class DeleteArticlesSuccess implements Action {
   readonly type = ArticleActionTypes.DeleteArticlesSuccess;
@@ -97,6 +102,7 @@ export type ArticleActions =
   | AddArticles
   | UpsertArticles
   | UpdateArticle
+  | UpdateArticleSuccess
   | UpdateArticles
   | DeleteArticle
   | DeleteArticleSuccess
