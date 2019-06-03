@@ -1,8 +1,11 @@
+using Avatar.Hubs;
+using Avatar.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,11 +18,25 @@ namespace Avatar
             Configuration = configuration;
         }
 
+        readonly string AllowSpecificOrigins = "_AllowSpecificOrigins";
+
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors(options =>
+            {
+                options.AddPolicy(AllowSpecificOrigins, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                    .AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .AllowCredentials();
+                });
+            });
+            services.AddSignalR().AddJsonProtocol();
+            services.AddDbContext<AvatarContext>(opt => opt.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             // In production, the Angular files will be served from this directory
@@ -43,6 +60,12 @@ namespace Avatar
                 app.UseHsts();
             }
 
+            app.UseCors(AllowSpecificOrigins);
+            app.UseSignalR(routes =>
+            {
+                routes.MapHub<CarHub>("/cars");
+                routes.MapHub<EmployeeHub>("/employees");
+            });
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();

@@ -1,0 +1,16 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+</form>
+<ag-grid-angular #agGrid style="width: 100%; height: 500px" id="myGrid" class="ag-theme-balham"
+  [columnDefs]="columnDefs" [suppressRowClickSelection]="true" [groupSelectsChildren]="true" [debug]="true"
+  [rowSelection]="rowSelection" [gridOptions]="gridOptions" [enableRangeSelection]="true" [pagination]="true"
+  [rowData]="articles$ | async">
+
+</ag-grid-angular>
+
+<button mat-button (click)="delete()">Delete</button>
+<button mat-button (click)="create()">Create</button>
+
+<pre>
+    {{ articles$ | async | json}}
+</pre>

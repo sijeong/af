@@ -145,5 +145,8 @@
       }
     }
   },
-  "defaultProject": "Avatar"
+  "defaultProject": "Avatar",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

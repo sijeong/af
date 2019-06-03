@@ -1,0 +1,74 @@
+<div style="margin: 50px">
+    <form *ngIf="article$ | async; else loading" [formGroup]="form" [connectForm]="article$ | async" novalidate (ngSubmit)="submit()">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>Sub Menu1</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="twenty-width">
+                <mat-select placeholder="Category" formControlName="category">
+                  <mat-option *ngFor="let cat of keys(category);let val of category" [value]="cat">
+                    {{ cat }}
+                  </mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.controls['category'].hasError('required')">
+                  cat1 is <strong>required</strong>
+                </mat-error>
+              </mat-form-field>
+            </div>
+          </div>
+          <!-- <div class="row">
+            <div class="col">
+              <mat-form-field class="twenty-width">
+                <mat-select placeholder="Cat2" formControlName="cat2">
+                  <mat-option *ngFor="let sub of keys(subCategory)" [value]="cat2.abbreviation">
+                    {{ cat2.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div> 
+          </div>-->
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="seventy-width">
+                <input matInput placeholder="Title" type="string" formControlName="title">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col">
+              <mat-form-field>
+                <!-- <input matInput placeholder="date" type="string" formControlName="date"> -->
+                <input matInput [matDatepicker]="picker" placeholder="Choose a date" formControlName="dateCreated">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+            <div class="col">
+              <mat-form-field>
+                <input matInput placeholder="Views" type="number" formControlName="viewCount">
+              </mat-form-field>
+            </div>
+          </div>
+          <div class="col">
+            <!-- <ckeditor placeholder="Type the content here!" formControlName="content" #description skin="moono-lisa"
+              [editor]="Editor"></ckeditor> -->
+          </div>
+          <div class="col">
+            <button mat-button (click)="gotoList()">Go to List</button>
+          </div>
+          <!-- <anms-editor></anms-editor> -->
+        </mat-card-content>
+      </mat-card>
+    </form>
+  </div>
+  <ng-template #loading>
+    Loading Data...
+  </ng-template>
+  <pre>
+    
+  </pre>
+  
+{{ article$ | async | json}}

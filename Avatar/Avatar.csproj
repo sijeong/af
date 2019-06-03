@@ -13,8 +13,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Bogus" Version="27.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="System.Reactive" Version="4.1.5" />
+    <PackageReference Include="System.Reactive.Core" Version="4.1.5" />
+    <PackageReference Include="System.Reactive.Interfaces" Version="4.1.5" />
+    <PackageReference Include="System.Reactive.Linq" Version="4.1.5" />
   </ItemGroup>
 
   <ItemGroup>

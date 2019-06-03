@@ -1,0 +1,10 @@
+<div *ngIf="calendarVisible">
+      <full-calendar [plugins]="calendarPlugins" [events]="calendarEvents" [displayEventTime]="false"
+            defaultView="dayGridMonth"></full-calendar>
+</div>
+
+<pre>
+      {{calendarEvents | json}}
+
+      {{rawData | json}}
+</pre>
