@@ -18,7 +18,7 @@ export class ArticleService {
       catchError(this.handleError)
     )
   }
-  
+
   getArticle(id: string): Observable<Article> {
     console.log(this.baseUrl + this.apiUrl + '/' + id);
     return this.http.get<any>(this.baseUrl + this.apiUrl + '/' + id).pipe(
@@ -27,7 +27,11 @@ export class ArticleService {
     )
   }
   createArticle(article: Article): Observable<Article> {
-    return this.http.post<Article>(this.baseUrl + this.apiUrl + '/', article).pipe(
+    
+    const newArticle = delete article.id;
+    
+    const httpOptions = { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    return this.http.post<Article>(this.baseUrl + this.apiUrl + '/', article, httpOptions).pipe(
 
     );
   }
@@ -47,10 +51,10 @@ export class ArticleService {
     return this.http.post<number[]>(this.baseUrl + this.apiUrl + '/ds', JSON.stringify(ids), httpOptions).pipe(
       catchError(this.handleError)
     )
-    
+
   }
 
-  
+
 
   private handleError(error: any) {
     console.error(error);

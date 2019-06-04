@@ -113,7 +113,7 @@ export class ListPostComponent implements OnInit {
     this.store.dispatch(new DeleteArticles({ ids: this.getSelectedRows() }));
   }
   create() {
-
+    this.router.navigate(['/editor'])
   }
   categoryParser = (params) => {
     return $enum(category).getKeyOrDefault(params.data.category.trim()).toString()

@@ -37,12 +37,12 @@ namespace Avatar.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Article>>> GetArticleList()
         {
-            return await _context.Article.ToListAsync();
+            return await _context.Article.OrderByDescending(a => a.Id).ToListAsync();
 
         }
 
         [HttpPost]
-        public async Task<ActionResult<Article>> PostArticle(Article article)
+        public async Task<ActionResult<Article>> PostArticle([FromBody] Article article)
         {
             _context.Article.Add(article);
             await _context.SaveChangesAsync();

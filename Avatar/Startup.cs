@@ -63,8 +63,9 @@ namespace Avatar
             app.UseCors(AllowSpecificOrigins);
             app.UseSignalR(routes =>
             {
-                routes.MapHub<CarHub>("/cars");
-                routes.MapHub<EmployeeHub>("/employees");
+                //routes.MapHub<CarHub>("/cars");
+                //routes.MapHub<EmployeeHub>("/employees");
+                routes.MapHub<SalesHub>("/sales");
             });
             app.UseHttpsRedirection();
             app.UseStaticFiles();

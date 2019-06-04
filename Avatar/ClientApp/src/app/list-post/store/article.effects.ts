@@ -3,18 +3,13 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { AppState } from '../../root-store';
 import { ArticleService } from 'src/app/services/article.service';
 import { Store, select } from '@ngrx/store';
-import { RequestArticles, ArticleActionTypes, LoadArticles, DeleteArticles, DeleteArticlesSuccess, DeleteArticle, DeleteArticleSuccess, UpsertArticle, UpdateArticle, UpdateArticleSuccess } from './article.actions';
+import { RequestArticles, ArticleActionTypes, LoadArticles, DeleteArticles, DeleteArticlesSuccess, DeleteArticle, DeleteArticleSuccess, UpsertArticle, UpdateArticle, UpdateArticleSuccess, AddArticle, AddArticleSuccess } from './article.actions';
 import { withLatestFrom, mergeMap, catchError, map, tap, switchMap } from 'rxjs/operators';
 import { selectAllArticles } from './article.reducer';
 import { throwError } from 'rxjs';
 
 @Injectable()
 export class ArticleEffects {
-
-  private handleError(error: any) {
-    console.error(error);
-    return throwError(error)
-  }
 
   constructor(private actions$: Actions, private service: ArticleService, private store: Store<AppState>) { }
 
@@ -25,6 +20,12 @@ export class ArticleEffects {
     mergeMap(() => this.service.getArticles()),
     map(articles => new LoadArticles({ articles })),
     catchError(this.handleError)
+  )
+  @Effect()
+  createArticle$ = this.actions$.pipe(
+    ofType<AddArticle>(ArticleActionTypes.AddArticle),
+    switchMap( a => this.service.createArticle(a.payload.article)),
+    map(b => new AddArticleSuccess())
   )
   @Effect()
   updateArticle$ = this.actions$.pipe(
@@ -46,4 +47,11 @@ export class ArticleEffects {
     map(count => new DeleteArticlesSuccess()),
     catchError(this.handleError)
   )
+
+  
+  private handleError(error: any) {
+    console.error(error);
+    return throwError(error)
+  }
+
 }

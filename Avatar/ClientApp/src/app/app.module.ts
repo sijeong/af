@@ -26,13 +26,16 @@ import { ListPostComponent } from './list-post/list-post.component';
 import { RootStoreModule } from './root-store'
 import { StoreModule } from '@ngrx/store';
 import { reducer as articleReducer } from './list-post/store/article.reducer'
+import { reducers as realtimeReducer, FEATURE_NAME } from './realtime-table/store/realTimeState'
+import { SalesReducer as salesReducer } from './realtime-table/store/reducers'
 import { EffectsModule } from '@ngrx/effects';
 import { ArticleEffects } from './list-post/store/article.effects';
 import { ConnectFormDirective } from './edit-post/connect-form.directive';
 import { ViewPostComponent } from './view-post/view-post.component';
 import { CategoryPipe } from './models/category.pipe';
 import { SubCategoryPipe } from './models/sub-category.pipe';
-
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular'
+import { ChartsModule } from 'ng2-charts'
 @NgModule({
   declarations: [
     AppComponent,
@@ -52,11 +55,12 @@ import { SubCategoryPipe } from './models/sub-category.pipe';
     BrowserAnimationsModule,
     FullCalendarModule,
     JoditAngularModule,
-
+    CKEditorModule,
     RootStoreModule,
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     AgGridModule.withComponents([]),
     FontAwesomeModule,
+    ChartsModule,
     HttpClientModule,
     FormsModule,
     MatCardModule,
@@ -74,10 +78,12 @@ import { SubCategoryPipe } from './models/sub-category.pipe';
       { path: 'article', component: ListPostComponent },
       { path: 'calendar', component: MonthlyCalendarComponent },
       { path: 'viewer/:id', component: ViewPostComponent },
-      { path: 'editor/:id', component: EditPostComponent }
+      { path: 'editor/:id', component: EditPostComponent },
+      { path: 'editor', component: EditPostComponent },
     ]),
     StoreModule.forFeature('article', articleReducer),
-    EffectsModule.forFeature([ArticleEffects])
+    EffectsModule.forFeature([ArticleEffects]),
+    StoreModule.forFeature(FEATURE_NAME, realtimeReducer)
   ],
   providers: [
 

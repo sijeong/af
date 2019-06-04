@@ -1,14 +1,33 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ArticleService } from '../services/article.service';
-import { tap } from 'rxjs/operators';
+import { SignalrService } from '../services/signalr.service';
+import { RealTimeState, selectRealTimeState } from '../realtime-table/store/realTimeState';
+import { Store, select } from '@ngrx/store';
+import { selectSalesData } from '../realtime-table/store/selectors';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
+  public chartOptions: any = {
+    scaleShowVerticalLines: true,
+    responsive: true,
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        }
+      }]
+    }
+  };
+  chartLabels: string[] = ['Real time data for the chart'];
+  chartType: string = 'bar';
+  chartLegend: boolean = true;
+  colors: any[] = [{ backgroundColor: '#5491DA' }, { backgroundColor: '#E74C3C' }, { backgroundColor: '#82E0AA' }, { backgroundColor: '#E5E7E9' }]
+
+  chartData$: any = this.store.pipe(select(selectSalesData));
 
   cd1 = [
     { headerName: 'Make', field: 'make' },
@@ -44,7 +63,7 @@ export class HomeComponent {
   pivotPanelShow;
   rowData;
 
-  constructor(private http: HttpClient, private service: ArticleService) {
+  constructor(private http: HttpClient, private service: SignalrService, private store: Store<RealTimeState>) {
     this.columnDefs = [
       {
         headerName: "Athlete",
@@ -152,6 +171,10 @@ export class HomeComponent {
       .subscribe(data => {
         this.rowData = data;
       });
+  }
+
+  ngOnInit() {
+    this.service.startHttpRequest();
   }
 }
 

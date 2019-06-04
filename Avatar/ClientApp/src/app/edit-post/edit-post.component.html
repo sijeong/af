@@ -1,5 +1,6 @@
 <div style="margin: 50px">
-  <form *ngIf="(article$ | async) as article; else loading" [formGroup]="form" [connectForm]="article$ | async" novalidate>
+  <form *ngIf="isNew || (article$ | async) as article  ; else loading " [formGroup]="form"
+    [connectForm]="article$ | async" novalidate>
     <mat-card class="dashboard-card">
       <mat-card-header>
         <mat-card-title>Edit Article</mat-card-title>
@@ -8,7 +9,8 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="twenty-width">
-              <mat-select placeholder="Category" formControlName="category">
+              <mat-select placeholder="Category" formControlName="category" [(ngModel)]="selectedCategory"
+                (selectionChange)="onCategoryChanged()">
                 <mat-option *ngFor="let cat of keys(_category)" [value]="_category[cat]">
                   {{ cat }}
                 </mat-option>
@@ -26,29 +28,33 @@
                 <!-- <div *ngif="_subCategoryParser(article$ | async).subCategory))">
 
                 </div> -->
-                <div *ngIf="(article$ | async) as article">
-                  <!-- <div *ngIf="_subCategoryParser(article.subCategory)">
+                <!-- <div *ngIf="(article$ | async) as article"> -->
+                <!-- <div *ngIf="_subCategoryParser(article.subCategory)">
                     {{_subCategoryParser(article.subCategory)}}
                   </div> -->
-                  <div *ngIf="enumParser(article.subCategory, _articleScienceCategory)">
-                    <mat-option *ngFor="let sub of keys(_articleScienceCategory)"
-                      [value]="_articleScienceCategory[sub]">
-                      {{ sub }}
-                    </mat-option>
-                  </div>
-                  <div *ngIf="enumParser(article.subCategory, _articleMathematicsCategory)">
-                    <mat-option *ngFor="let sub of keys(_articleMathematicsCategory)"
-                      [value]="_articleMathematicsCategory[sub]">
-                      {{ sub }}
-                    </mat-option>
-                  </div>
-                  <div *ngIf="enumParser(article.subCategory, _articleLiteratureCategory)">
-                    <mat-option *ngFor="let sub of keys(_articleLiteratureCategory)"
-                      [value]="_articleLiteratureCategory[sub]">
-                      {{ sub }}
-                    </mat-option>
-                  </div>
+                <div *ngIf="isNew">
+
                 </div>
+                <div *ngIf="!isNew">
+                </div>
+                <div *ngIf="selectedCategory == 'SC' || enumParser(article.subCategory, _articleScienceCategory)">
+                  <mat-option *ngFor="let sub of keys(_articleScienceCategory)" [value]="_articleScienceCategory[sub]">
+                    {{ sub }}
+                  </mat-option>
+                </div>
+                <div *ngIf="selectedCategory == 'MT' || enumParser(article.subCategory, _articleMathematicsCategory)">
+                  <mat-option *ngFor="let sub of keys(_articleMathematicsCategory)"
+                    [value]="_articleMathematicsCategory[sub]">
+                    {{ sub }}
+                  </mat-option>
+                </div>
+                <div *ngIf="selectedCategory == 'LT' || enumParser(article.subCategory, _articleLiteratureCategory)">
+                  <mat-option *ngFor="let sub of keys(_articleLiteratureCategory)"
+                    [value]="_articleLiteratureCategory[sub]">
+                    {{ sub }}
+                  </mat-option>
+                </div>
+                <!-- </div> -->
               </mat-select>
             </mat-form-field>
           </div>
@@ -76,13 +82,18 @@
           </div>
         </div>
         <div class="col">
-          <!-- <ckeditor placeholder="Type the content here!" formControlName="content" #description skin="moono-lisa"
-              [editor]="Editor"></ckeditor> -->
+          <ckeditor placeholder="Type the content here!" formControlName="content" #description skin="moono-lisa"
+            [editor]="editor"></ckeditor>
         </div>
-        <div class="col">
+        <div *ngIf="!isNew" class="col">
           <button mat-button (click)="gotoList()">Go to List</button>
-          <button (click)="save()" mat-raised-button color="primary">Save</button>
-          <button (click)="delete(article)">Delete</button>
+          <button (click)="save()" [disabled]="form.invalid" mat-raised-button color="primary">Save</button>
+          <button (click)="delete(article)" mat-raised-button color="warn">Delete</button>
+        </div>
+        <div *ngIf="isNew" class="col">
+          <button mat-button (click)="gotoList()">Cancel</button>
+          <button (click)="create()" [disabled]="form.invalid" mat-raised-button color="primary">Create</button>
+
         </div>
         <!-- <anms-editor></anms-editor> -->
       </mat-card-content>
@@ -98,3 +109,4 @@
 <pre>
 {{form.value | json}}
 </pre>
+{{isNew}}

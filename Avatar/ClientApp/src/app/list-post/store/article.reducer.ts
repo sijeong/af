@@ -1,7 +1,7 @@
 import { EntityState, EntityAdapter, createEntityAdapter } from '@ngrx/entity';
 import { Article } from './article.model';
 import { ArticleActions, ArticleActionTypes } from './article.actions';
-import { selectReports, ReportState } from '../../root-store/report-state'
+// import { selectReports, ReportState } from '../../root-store/report-state'
 import { createSelector, createFeatureSelector } from '@ngrx/store';
 import { selectRouterState } from '../../root-store';
 

@@ -6,6 +6,7 @@ export enum ArticleActionTypes {
   RequestArticles = '[Article] Request Articles',
   LoadArticles = '[Article] Load Articles',
   AddArticle = '[Article] Add Article',
+  AddArticleSuccess = '[Article] Add Article Success',
   UpsertArticle = '[Article] Upsert Article',
   AddArticles = '[Article] Add Articles',
   UpsertArticles = '[Article] Upsert Articles',
@@ -33,7 +34,11 @@ export class AddArticle implements Action {
 
   constructor(public payload: { article: Article }) { }
 }
+export class AddArticleSuccess implements Action {
+  readonly type = ArticleActionTypes.AddArticleSuccess;
 
+  // constructor(public payload: { article: Article }) { }
+}
 export class UpsertArticle implements Action {
   readonly type = ArticleActionTypes.UpsertArticle;
 
@@ -98,6 +103,7 @@ export type ArticleActions =
   | RequestArticles
   | LoadArticles
   | AddArticle
+  | AddArticleSuccess
   | UpsertArticle
   | AddArticles
   | UpsertArticles
