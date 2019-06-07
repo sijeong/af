@@ -19,7 +19,8 @@ export const environment = {
       automaticSilentRenew: true,
       userStore: () => new WebStorageStateStore({ store: window.localStorage })
     }
-  }
+  },
+  base_Url : 'https://localhost:44384'
 
 };
 

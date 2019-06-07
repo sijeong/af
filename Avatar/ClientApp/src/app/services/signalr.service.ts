@@ -6,18 +6,18 @@ import { Sales } from '../models/sales';
 import { DataSuccessAction } from '../realtime-table/store/actions';
 import { AppState } from '../root-store';
 import { Store } from '@ngrx/store';
-
+import { environment as env } from '../../environments/environment'
 @Injectable({
   providedIn: 'root'
 })
 export class SignalrService {
   hubConnection: HubConnection;
   public data$: Observable<Sales[]>;
-  constructor(private http: HttpClient, @Inject('BASE_URL') private baseUrl: string, private store: Store<AppState>) { }
+  constructor(private http: HttpClient, private store: Store<AppState>) { }
 
   startConnection() {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl(this.baseUrl + '/sales')
+      .withUrl(env.base_Url + '/sales')
       .withHubProtocol(new JsonHubProtocol())
       .build();
 
@@ -36,13 +36,13 @@ export class SignalrService {
   startHttpRequest() {
     this.startConnection();
     this.addTransferSalesDataListener();
-    this.http.get(this.baseUrl + '/api/sales')
+    this.http.get(env.base_Url + '/api/sales')
       .subscribe(res => {
         console.log(res);
       })
   }
   getInitialData(): Observable<Sales[]> {
-    return this.http.get<Sales[]>(this.baseUrl + '/api/sales/init');
+    return this.http.get<Sales[]>(env.base_Url + '/api/sales/init');
   }
 }
 
