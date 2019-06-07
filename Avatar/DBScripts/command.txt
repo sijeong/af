@@ -1,1 +1,2 @@
-﻿Scaffold-DbContext "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Avatar;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -force
+﻿Scaffold-DbContext "Data Source=DESKTOP-L17C8MH\SQLEXPRESS;Initial Catalog=Avatar;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -force
+					

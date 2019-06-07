@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col">
             <mat-form-field class="twenty-width">
-              <mat-select placeholder="Category" formControlName="category" [(ngModel)]="selectedCategory"
+              <mat-select placeholder="Category" formControlName="category"
                 (selectionChange)="onCategoryChanged()">
                 <mat-option *ngFor="let cat of keys(_category)" [value]="_category[cat]">
                   {{ cat }}
@@ -37,18 +37,18 @@
                 </div>
                 <div *ngIf="!isNew">
                 </div>
-                <div *ngIf="selectedCategory == 'SC' || enumParser(article.subCategory, _articleScienceCategory)">
+                <div *ngIf=" enumParser(article.subCategory, _articleScienceCategory)">
                   <mat-option *ngFor="let sub of keys(_articleScienceCategory)" [value]="_articleScienceCategory[sub]">
                     {{ sub }}
                   </mat-option>
                 </div>
-                <div *ngIf="selectedCategory == 'MT' || enumParser(article.subCategory, _articleMathematicsCategory)">
+                <div *ngIf="enumParser(article.subCategory, _articleMathematicsCategory)">
                   <mat-option *ngFor="let sub of keys(_articleMathematicsCategory)"
                     [value]="_articleMathematicsCategory[sub]">
                     {{ sub }}
                   </mat-option>
                 </div>
-                <div *ngIf="selectedCategory == 'LT' || enumParser(article.subCategory, _articleLiteratureCategory)">
+                <div *ngIf="enumParser(article.subCategory, _articleLiteratureCategory)">
                   <mat-option *ngFor="let sub of keys(_articleLiteratureCategory)"
                     [value]="_articleLiteratureCategory[sub]">
                     {{ sub }}
