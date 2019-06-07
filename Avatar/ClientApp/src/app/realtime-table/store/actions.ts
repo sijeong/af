@@ -1,4 +1,4 @@
-import { Action } from "@ngrx/store/src";
+import { Action } from "@ngrx/store";
 import { Sales } from '../../models/sales';
 
 export enum ActionTypes {

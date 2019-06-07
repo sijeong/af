@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Callback</title>
+    <link rel="icon" type="image/x-icon" href="favicon.png">
+    <script src="oidc-client.min.js" type="application/javascript"></script>
+
+</head>
+
+<body>
+    <script>
+        var Oidc = window.Oidc;
+        var config = {
+            userStore: new Oidc.WebStorageStateStore({
+                store: window.localStorage
+            })
+        }
+        if ((Oidc && Oidc.Log && Oidc.Log.logger)) {
+            Oidc.Log.logger = console;
+        }
+        var isPopupCallback = JSON.parse(window.localStorage.getItem('ngoidc:isPopupCallback'));
+        if (isPopupCallback) {
+            new Oidc.UserManager(config).signinPopupCallback().then(user => {
+                console.log(user.state.redirect_url);
+                window.location.href = user.state.redirect_url || '/';
+            })
+        }
+        else {
+            new Oidc.UserManager(config).signinRedirectCallback().then
+                (user => {
+                    window.location.href = user.state.redirect_url || '/';
+                });
+        }
+    </script>
+</body>
+
+</html>

@@ -1,3 +1,23 @@
+<div fxLayout="column" *ngIf="article$ | async as article">
+  <div fxFlex="30">30</div>
+  <div fxFlex="70">
+    <div fxFlex="40">Category</div>
+    <div fxFlex="20">{{article.category | category}}</div>
+    <div fxFlex="40">SubCategory</div>
+    <div fxFlex="20">{{article.subCategory | subCategory}}</div>
+  </div>
+  <div fxFlex="70">
+    <div fxFlex="40">Title</div>
+    <div fxFlex="20">{{article.Title}}</div>
+  </div>
+  <div fxFlex="70">
+    <div fxFlex="40">Content</div>
+    <div fxFlex="20">{{article.Content  }}</div>
+  </div>
+</div>
+
+
+
 <div class="container" rtl>
   <div class="row">
     <div class="col-md-12">
@@ -26,13 +46,13 @@
           </div>
         </div>
         <div class="row">
-            <div class="col">
-              Content
-            </div>
-            <div class="col">
-              {{selectedArticle.content}}
-            </div>
+          <div class="col">
+            Content
           </div>
+          <div class="col">
+            {{selectedArticle.content}}
+          </div>
+        </div>
         <div class="row">
           <span class="d-flex justify-content-end">
             <span>

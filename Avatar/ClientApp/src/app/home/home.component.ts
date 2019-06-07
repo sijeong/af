@@ -1,56 +1,42 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { SignalrService } from '../services/signalr.service';
-import { RealTimeState, selectRealTimeState } from '../realtime-table/store/realTimeState';
 import { Store, select } from '@ngrx/store';
 import { selectSalesData } from '../realtime-table/store/selectors';
+import { Observable, of, interval } from 'rxjs';
+import { Sales } from '../models/sales';
+import { map, throttle } from 'rxjs/operators';
+import { AppState } from '../root-store';
+import { OidcFacade } from 'ng-oidc-client';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
+  auth$ = this.oidc.loggedIn$;
+  
+  view: any[] = [800, 500];
 
-  public chartOptions: any = {
-    scaleShowVerticalLines: true,
-    responsive: true,
-    scales: {
-      yAxes: [{
-        ticks: {
-          beginAtZero: true
-        }
-      }]
-    }
+  // options
+  showXAxis = true;
+  showYAxis = true;
+  gradient = false;
+  showLegend = true;
+  showXAxisLabel = true;
+  xAxisLabel = 'Country';
+  showYAxisLabel = true;
+  yAxisLabel = 'Population';
+
+  colorScheme = {
+    domain: ['#5AA454', '#A10A28', '#C7B42C', '#AAAAAA']
   };
-  chartLabels: string[] = ['Real time data for the chart'];
-  chartType: string = 'bar';
-  chartLegend: boolean = true;
-  colors: any[] = [{ backgroundColor: '#5491DA' }, { backgroundColor: '#E74C3C' }, { backgroundColor: '#82E0AA' }, { backgroundColor: '#E5E7E9' }]
 
-  chartData$: any = this.store.pipe(select(selectSalesData));
-
-  cd1 = [
-    { headerName: 'Make', field: 'make' },
-    { headerName: 'Model', field: 'model' },
-    { headerName: 'Price', field: 'price' },
-  ];
-
-  cd2 = [
-    { headerName: 'Make', field: 'make', filter: true },
-    { headerName: 'Model', field: 'model', filter: true },
-    { headerName: 'Price', field: 'price', filter: true },
-  ];
-  cd3 = [
-    { headerName: 'Make', field: 'make', sortable: true, filter: true },
-    { headerName: 'Model', field: 'model', sortable: true, filter: true },
-    { headerName: 'Price', field: 'price', sortable: true, filter: true },
-  ];
-
-  rd = [
-    { make: 'Toyata', model: 'Celica', price: 35000 },
-    { make: 'Ford', model: 'Mondeo', price: 32000 },
-    { make: 'Porsche', model: 'Boxter', price: 72000 },
-  ];
+  chartData$: Observable<Sales[]> = this.store.pipe(select(selectSalesData)).pipe(
+    throttle(val => interval(5000)));
+  res$ = this.chartData$.pipe(
+    map(b => b.map(c => { return { name: c.label, value: c.data } })),
+  );
 
   gridApi;
   gridColumnApi;
@@ -63,7 +49,7 @@ export class HomeComponent implements OnInit {
   pivotPanelShow;
   rowData;
 
-  constructor(private http: HttpClient, private service: SignalrService, private store: Store<RealTimeState>) {
+  constructor(private http: HttpClient, private service: SignalrService, private store: Store<AppState>, private oidc: OidcFacade) {
     this.columnDefs = [
       {
         headerName: "Athlete",
@@ -176,7 +162,35 @@ export class HomeComponent implements OnInit {
   ngOnInit() {
     this.service.startHttpRequest();
   }
+  onSelect(data) {
+    console.log('Item clicked', data);
+  }
+  onLegendLabelClick(entry) {
+    console.log('Legend clicked', entry);
+  }
+
+  cd1 = [
+    { headerName: 'Make', field: 'make' },
+    { headerName: 'Model', field: 'model' },
+    { headerName: 'Price', field: 'price' },
+  ];
+
+  cd2 = [
+    { headerName: 'Make', field: 'make', filter: true },
+    { headerName: 'Model', field: 'model', filter: true },
+    { headerName: 'Price', field: 'price', filter: true },
+  ];
+  cd3 = [
+    { headerName: 'Make', field: 'make', sortable: true, filter: true },
+    { headerName: 'Model', field: 'model', sortable: true, filter: true },
+    { headerName: 'Price', field: 'price', sortable: true, filter: true },
+  ];
+
+  rd = [
+    { make: 'Toyata', model: 'Celica', price: 35000 },
+    { make: 'Ford', model: 'Mondeo', price: 32000 },
+    { make: 'Porsche', model: 'Boxter', price: 72000 },
+  ];
+
 }
-
-
 

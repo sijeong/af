@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { OidcFacade } from 'ng-oidc-client';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+  auth$ = this.oidc.loggedIn$;
+
+  constructor(private oidc: OidcFacade){}
 }
