@@ -109,7 +109,7 @@ import { RegisterComponent } from './register/register.component'
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor(@Inject('BASE_URL') private baseUrl: string) {
+  constructor() {
     library.add(faArrowDown, faArrowUp, faUserCircle,
       faPowerOff);
   }
