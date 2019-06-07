@@ -10,13 +10,13 @@ export function SalesReducer(state = initialState, action: Actions): SalesState{
         case ActionTypes.DATA_SUCCESS:
             return {
                 ...state,
-                sales: action.payload,
+                sales: action.payload.sales,
                 error: null
             };
         case ActionTypes.DATA_FAILURE:
             return {
                 ...state,
-                error: action.payload
+                error: action.payload.error
             }
         default:
             return{

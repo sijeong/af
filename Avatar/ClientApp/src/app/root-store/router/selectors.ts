@@ -1,0 +1,1 @@
+export const PlaceHolder = 'type here'

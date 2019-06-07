@@ -30,7 +30,7 @@ export class SignalrService {
   addTransferSalesDataListener = () => {
     this.hubConnection.on('publishSalesData', (data) => {
       this.data$ = of(data);
-      this.store.dispatch(new DataSuccessAction(data));
+      this.store.dispatch(new DataSuccessAction({sales: data}));
     });
   }
   startHttpRequest() {

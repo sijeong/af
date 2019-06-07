@@ -12,12 +12,25 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { JoditAngularModule } from 'jodit-angular';
 import { AgGridModule } from 'ag-grid-angular'
 import { MatTabsModule } from '@angular/material/tabs';
-import { MatIconModule, MatDatepickerModule, MatSelectModule, MatButtonModule, MatNativeDateModule, MatInputModule } from '@angular/material';
+import {
+  MatIconModule,
+  MatDatepickerModule,
+  MatSelectModule,
+  MatButtonModule,
+  MatNativeDateModule,
+  MatInputModule,
+  MatMenuModule
+} from '@angular/material';
 import { MatCardModule } from '@angular/material/card'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 // import {} from '@aspnet/signalr';
-// import { library } from '@fortawesome/fontawesome-svg-core'
-// import { faArrowDown, faArrowUp } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import {
+  faArrowDown,
+  faArrowUp,
+  faPowerOff,
+  faUserCircle
+} from '@fortawesome/free-solid-svg-icons';
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { EditPostComponent } from './edit-post/edit-post.component';
 import { StatusHeaderComponent } from './status-header/status-header.component';
@@ -26,7 +39,6 @@ import { ListPostComponent } from './list-post/list-post.component';
 import { RootStoreModule } from './root-store'
 import { StoreModule } from '@ngrx/store';
 import { reducer as articleReducer } from './list-post/store/article.reducer'
-import { reducers as realtimeReducer, FEATURE_NAME } from './realtime-table/store/realTimeState'
 import { SalesReducer as salesReducer } from './realtime-table/store/reducers'
 import { EffectsModule } from '@ngrx/effects';
 import { ArticleEffects } from './list-post/store/article.effects';
@@ -35,7 +47,12 @@ import { ViewPostComponent } from './view-post/view-post.component';
 import { CategoryPipe } from './models/category.pipe';
 import { SubCategoryPipe } from './models/sub-category.pipe';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular'
-import { ChartsModule } from 'ng2-charts'
+import { NgxChartsModule } from '@swimlane/ngx-charts'
+import { NgOidcClientModule } from 'ng-oidc-client'
+import { WebStorageStateStore } from 'oidc-client';
+import { AppRoutingModule } from './app-routing.module';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +66,9 @@ import { ChartsModule } from 'ng2-charts'
     ConnectFormDirective,
     ViewPostComponent,
     CategoryPipe,
-    SubCategoryPipe
+    SubCategoryPipe,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -60,9 +79,11 @@ import { ChartsModule } from 'ng2-charts'
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     AgGridModule.withComponents([]),
     FontAwesomeModule,
-    ChartsModule,
+    NgxChartsModule,
     HttpClientModule,
     FormsModule,
+    MatMenuModule,
+
     MatCardModule,
     MatDatepickerModule,
     MatSelectModule,
@@ -73,17 +94,24 @@ import { ChartsModule } from 'ng2-charts'
     FlexLayoutModule,
     MatTabsModule,
     MatIconModule,
-    RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'article', component: ListPostComponent },
-      { path: 'calendar', component: MonthlyCalendarComponent },
-      { path: 'viewer/:id', component: ViewPostComponent },
-      { path: 'editor/:id', component: EditPostComponent },
-      { path: 'editor', component: EditPostComponent },
-    ]),
+    AppRoutingModule,
     StoreModule.forFeature('article', articleReducer),
     EffectsModule.forFeature([ArticleEffects]),
-    StoreModule.forFeature(FEATURE_NAME, realtimeReducer)
+    StoreModule.forFeature('sales', salesReducer),
+    NgOidcClientModule.forRoot({
+      oidc_config: {
+        authority: 'https://localhost:44385',
+        client_id: 'ng-oidc-client-identity',
+        response_type: 'id_token token',
+        scope: 'openid profile offline_access api1',
+        redirect_uri: 'http://localhost:4200/callback.html',
+        silent_redirect_uri: 'http://localhost:4200/renew-callback.html',
+        post_logout_redirect_uri: 'http://localhost:4200/signout-callback.html',
+        accessTokenExpiringNotificationTime: 10,
+        automaticSilentRenew: true,
+        userStore: () => new WebStorageStateStore({ store: window.localStorage })
+      }
+    })
   ],
   providers: [
 
@@ -91,7 +119,8 @@ import { ChartsModule } from 'ng2-charts'
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  //   constructor() {
-  //     library.add(faArrowDown, faArrowUp);
-  //   }
+  constructor() {
+    library.add(faArrowDown, faArrowUp, faUserCircle,
+      faPowerOff);
+  }
 }

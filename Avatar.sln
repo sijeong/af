@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Avatar", "Avatar\Avatar.csproj", "{96CC8BBC-5F4C-4FF9-A9A3-A93F23EEFF9D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avatar", "Avatar\Avatar.csproj", "{96CC8BBC-5F4C-4FF9-A9A3-A93F23EEFF9D}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ng-oidc-client-server", "..\..\..\..\workspace\auth\ng-oidc-client-server.csproj", "{8EC7C3E0-F39A-4476-A8BA-879DD0C5F3D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{96CC8BBC-5F4C-4FF9-A9A3-A93F23EEFF9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96CC8BBC-5F4C-4FF9-A9A3-A93F23EEFF9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96CC8BBC-5F4C-4FF9-A9A3-A93F23EEFF9D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EC7C3E0-F39A-4476-A8BA-879DD0C5F3D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EC7C3E0-F39A-4476-A8BA-879DD0C5F3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EC7C3E0-F39A-4476-A8BA-879DD0C5F3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EC7C3E0-F39A-4476-A8BA-879DD0C5F3D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

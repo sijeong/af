@@ -1,0 +1,6 @@
+<button mat-button mat-stroked-button color="accent" *ngIf="!(auth$ | async)" (click)="onLoginClick()">
+  LOGIN
+</button>
+<button mat-button mat-stroked-button color="accent" *ngIf="!(auth$ | async)" (click)="onRegisterClick()">
+  REGISTER
+</button>

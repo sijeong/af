@@ -1,9 +1,11 @@
+import { Sales } from "src/app/models/sales";
+
 export interface SalesState {
-    sales: any | null,
-    error: any | null
+    sales: Sales[],
+    error: string
 }
 
 export const initialState: SalesState = {
-    sales: null,
-    error: null
+    sales: [],
+    error: ''
 }

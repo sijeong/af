@@ -5,7 +5,7 @@ import { SalesState } from "./state";
 
 export const FEATURE_NAME = 'realTimes';
 
-export const selectRealTimeState = createFeatureSelector<State, RealTimeState>(FEATURE_NAME);
+export const selectRealTimeState = createFeatureSelector<RealTimeState>(FEATURE_NAME);
 
 export interface RealTimeState {
     sales: SalesState

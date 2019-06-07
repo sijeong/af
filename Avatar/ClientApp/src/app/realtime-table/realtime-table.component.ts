@@ -4,6 +4,8 @@ import { AppState } from '../root-store';
 import { Store, select } from '@ngrx/store';
 import { SignalrService } from '../services/signalr.service';
 import { selectSalesData } from './store/selectors';
+import { throttle } from 'rxjs/operators';
+import { interval } from 'rxjs';
 @Component({
   selector: 'app-realtime-table',
   templateUrl: './realtime-table.component.html',
@@ -18,7 +20,9 @@ export class RealtimeTableComponent implements OnInit {
 
   ngOnInit() {
     this.initialRowDataLoads$ = this.service.getInitialData();
-    this.rowDataUpdates$ = this.store.pipe(select(selectSalesData));
+    this.rowDataUpdates$ = this.store.pipe(select(selectSalesData)).pipe(
+      throttle(val => interval(5000))
+    );
     this.gridOptions = <GridOptions>{
       enableRangeSelection: true,
       columnDefs: this.createColumnDefs(),
@@ -33,10 +37,10 @@ export class RealtimeTableComponent implements OnInit {
             }
             this.rowDataUpdates$.subscribe((updates) => {
               if (this.gridOptions.api) {
-                console.log('yes api')
-                this.gridOptions.api.updateRowData({ update: updates.sales })
+                // console.log('yes api')
+                this.gridOptions.api.updateRowData({ update: updates })
               } else {
-                console.log('no api')
+                // console.log('no api')
               }
             })
           }

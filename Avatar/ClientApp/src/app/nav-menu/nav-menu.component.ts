@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { OidcFacade } from 'ng-oidc-client';
+import { AuthGuard } from '../services/auth.guard';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-nav-menu',
@@ -6,6 +9,11 @@ import { Component } from '@angular/core';
   styleUrls: ['./nav-menu.component.css']
 })
 export class NavMenuComponent {
+
+  auth$ = this.oidc.loggedIn$;
+  constructor(private oidc: OidcFacade, public guard: AuthGuard, public route: ActivatedRoute) { }
+
+
   isExpanded = false;
 
   collapse() {
@@ -14,5 +22,21 @@ export class NavMenuComponent {
 
   toggle() {
     this.isExpanded = !this.isExpanded;
+  }
+
+  onLoginClick() {
+    this.oidc.signinPopup({
+      data: {
+        redirect_url: '/'
+      }
+    });
+  }
+
+  onLogoutClick() {
+    this.oidc.signoutPopup({
+      data: {
+        redirect_url: '/'
+      }
+    })
   }
 }
