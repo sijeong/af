@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Inject } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
@@ -12,6 +12,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { JoditAngularModule } from 'jodit-angular';
 import { AgGridModule } from 'ag-grid-angular'
 import { MatTabsModule } from '@angular/material/tabs';
+
+import { environment } from './../environments/environment';
 import {
   MatIconModule,
   MatDatepickerModule,
@@ -98,20 +100,8 @@ import { RegisterComponent } from './register/register.component'
     StoreModule.forFeature('article', articleReducer),
     EffectsModule.forFeature([ArticleEffects]),
     StoreModule.forFeature('sales', salesReducer),
-    NgOidcClientModule.forRoot({
-      oidc_config: {
-        authority: 'https://localhost:44385',
-        client_id: 'ng-oidc-client-identity',
-        response_type: 'id_token token',
-        scope: 'openid profile offline_access api1',
-        redirect_uri: 'http://localhost:4200/callback.html',
-        silent_redirect_uri: 'http://localhost:4200/renew-callback.html',
-        post_logout_redirect_uri: 'http://localhost:4200/signout-callback.html',
-        accessTokenExpiringNotificationTime: 10,
-        automaticSilentRenew: true,
-        userStore: () => new WebStorageStateStore({ store: window.localStorage })
-      }
-    })
+    NgOidcClientModule.forRoot(environment.oidc_conf
+    )
   ],
   providers: [
 
@@ -119,7 +109,7 @@ import { RegisterComponent } from './register/register.component'
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  constructor() {
+  constructor(@Inject('BASE_URL') private baseUrl: string) {
     library.add(faArrowDown, faArrowUp, faUserCircle,
       faPowerOff);
   }
