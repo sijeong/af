@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avatar", "Avatar\Avatar.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ng-oidc-client-server", "..\..\..\..\workspace\auth\ng-oidc-client-server.csproj", "{8EC7C3E0-F39A-4476-A8BA-879DD0C5F3D9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Auth", "Auth", "{BA4FB590-7B54-4638-BF49-99A881973017}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ng-oidc-client-server", "..\..\..\..\workspace\ng-oidc-client-server\ng-oidc-client-server.csproj", "{3DF51EFF-8B2F-4626-B842-F849921BA518}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,9 +25,16 @@ Global
 		{8EC7C3E0-F39A-4476-A8BA-879DD0C5F3D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EC7C3E0-F39A-4476-A8BA-879DD0C5F3D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EC7C3E0-F39A-4476-A8BA-879DD0C5F3D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3DF51EFF-8B2F-4626-B842-F849921BA518}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3DF51EFF-8B2F-4626-B842-F849921BA518}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3DF51EFF-8B2F-4626-B842-F849921BA518}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3DF51EFF-8B2F-4626-B842-F849921BA518}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3DF51EFF-8B2F-4626-B842-F849921BA518} = {BA4FB590-7B54-4638-BF49-99A881973017}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EBE0DBE3-9C7C-4971-996F-79A8823CE226}
