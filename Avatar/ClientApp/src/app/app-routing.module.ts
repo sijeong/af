@@ -8,6 +8,7 @@ import { NgModule } from "@angular/core";
 import { AuthGuard } from "./services/auth.guard";
 import { LoginComponent } from "./login/login.component";
 import { RegisterComponent } from "./register/register.component";
+import { AuthCallbackComponent } from "./auth-callback/auth-callback.component";
 
 const routes: Routes =
   [
@@ -18,7 +19,8 @@ const routes: Routes =
     { path: 'editor/:id', component: EditPostComponent },
     { path: 'editor', component: EditPostComponent },
     { path: 'login', component: LoginComponent },
-    { path: 'register', component: RegisterComponent }
+    { path: 'register', component: RegisterComponent },
+    { path: 'callback', component: AuthCallbackComponent }
   ]
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

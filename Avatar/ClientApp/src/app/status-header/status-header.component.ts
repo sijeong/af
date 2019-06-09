@@ -15,7 +15,7 @@ import { OidcFacade } from 'ng-oidc-client';
 })
 export class StatusHeaderComponent implements OnInit {
   auth$ = this.oidc.loggedIn$;
-  
+
   arrowUp = faArrowUp;
   arrowDown = faArrowDown;
 

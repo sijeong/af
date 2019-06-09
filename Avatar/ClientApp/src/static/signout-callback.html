@@ -20,13 +20,12 @@
     var isPopupCallback = JSON.parse(window.localStorage.getItem('ngoidc:isPopupCallback'));
     if (isPopupCallback) {
       new Oidc.UserManager(config).signoutPopupCallback().then(user => {
-        console.log(user.state.redirect_url);
-        window.location.href = user.state.redirect_url || '/';
+        
       });
     } else {
       new Oidc.UserManager(config).signoutRedirectCallback().then(user => {
-        console.log(test.state.redirect_url);
-        window.location.href = user.state.redirect_url || '/';
+        console.log('***signout***: ' + user.state.redirect_url);
+        window.location.href = user.state.redirect_url;
       });
     }
   </script>

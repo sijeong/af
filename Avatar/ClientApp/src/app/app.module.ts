@@ -54,7 +54,8 @@ import { NgOidcClientModule } from 'ng-oidc-client'
 import { WebStorageStateStore } from 'oidc-client';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component'
+import { RegisterComponent } from './register/register.component';
+import { AuthCallbackComponent } from './auth-callback/auth-callback.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +71,8 @@ import { RegisterComponent } from './register/register.component'
     CategoryPipe,
     SubCategoryPipe,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AuthCallbackComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -100,8 +102,7 @@ import { RegisterComponent } from './register/register.component'
     StoreModule.forFeature('article', articleReducer),
     EffectsModule.forFeature([ArticleEffects]),
     StoreModule.forFeature('sales', salesReducer),
-    NgOidcClientModule.forRoot(environment.oidc_conf
-    )
+    NgOidcClientModule.forRoot(environment.oidc_conf)
   ],
   providers: [
 

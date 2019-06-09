@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.28307.645
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Avatar", "Avatar\Avatar.csproj", "{96CC8BBC-5F4C-4FF9-A9A3-A93F23EEFF9D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ng-oidc-client-server", "Auth\ng-oidc-client-server.csproj", "{00762672-4B75-4B38-80CB-E51B2EE2A84D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer", "Auth\AuthServer\AuthServer.csproj", "{5EBD53E5-6B75-42D3-804E-9203BDE99FA5}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthServer.Infrastructure", "Auth\AuthServer.Infrastructure\AuthServer.Infrastructure.csproj", "{DEA20503-498B-4BA2-858F-FA1592D707B6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +19,14 @@ Global
 		{96CC8BBC-5F4C-4FF9-A9A3-A93F23EEFF9D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{96CC8BBC-5F4C-4FF9-A9A3-A93F23EEFF9D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{96CC8BBC-5F4C-4FF9-A9A3-A93F23EEFF9D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00762672-4B75-4B38-80CB-E51B2EE2A84D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00762672-4B75-4B38-80CB-E51B2EE2A84D}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00762672-4B75-4B38-80CB-E51B2EE2A84D}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00762672-4B75-4B38-80CB-E51B2EE2A84D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EBD53E5-6B75-42D3-804E-9203BDE99FA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EBD53E5-6B75-42D3-804E-9203BDE99FA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EBD53E5-6B75-42D3-804E-9203BDE99FA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EBD53E5-6B75-42D3-804E-9203BDE99FA5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DEA20503-498B-4BA2-858F-FA1592D707B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEA20503-498B-4BA2-858F-FA1592D707B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEA20503-498B-4BA2-858F-FA1592D707B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEA20503-498B-4BA2-858F-FA1592D707B6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

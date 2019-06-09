@@ -11,12 +11,11 @@ import { AppState } from '../root-store';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  // ru = this.store.pipe(select(selectRouterState => ))
+
   constructor(private oidc: OidcFacade, private router: Router, private store: Store<AppState>) { }
 
   canActivate(
     route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    const redirectUrl = route['_routerState']['url'];
 
     return this.oidc.identity$.pipe(
       take(1),
@@ -24,21 +23,22 @@ export class AuthGuard implements CanActivate {
         if (user && !user.expired) {
           return of(true);
         } else {
-          tap(() => console.log('*****' + redirectUrl))
-          this.router.navigateByUrl(
-            this.router.createUrlTree(
-              ['/login'], {
-                queryParams: {
-                  redirectUrl
-                }
-              }
-            )
-          )
+          console.log(state.url)
+          // this.router.navigateByUrl(
+          //   this.router.createUrlTree(
+          //     ['/login'], {
+          //       queryParams: {
+          //         returnUrl: state.url
+          //       }
+          //     }
+          //   )
+          // )
           // return of(false)
-          // this.router.navigate(['/login'], { queryParams: { returnUrl: state.url } })
+          this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }, replaceUrl: true })
+          return of(false);
         }
       }),
-      
+
     );
   }
 

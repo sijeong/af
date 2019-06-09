@@ -25,18 +25,19 @@ export class NavMenuComponent {
   }
 
   onLoginClick() {
-    this.oidc.signinPopup({
+    this.oidc.signinRedirect({
       data: {
-        redirect_url: '/'
+        // redirect_url: 'http://localhost:4200/'
       }
     });
   }
 
   onLogoutClick() {
-    this.oidc.signoutPopup({
+    this.oidc.signoutRedirect({
       data: {
-        redirect_url: '/'
+        // redirect_url: 'http://localhost:4200/'
       }
     })
   }
 }
+
