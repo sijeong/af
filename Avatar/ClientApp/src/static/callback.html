@@ -30,7 +30,7 @@
             new Oidc.UserManager(config).signinRedirectCallback().then
                 (user => {
                     // console.log('***login***: ' + user.state.redirect_url);
-                    window.location.href = user.state.redirect_url ;
+                    window.location.href = '/';
                 });
         }
     </script>

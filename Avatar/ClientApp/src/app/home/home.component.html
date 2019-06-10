@@ -37,10 +37,10 @@
   <mat-tab label="Bar Chart">
     <ng-template matTabContent>
       <div style="display: block" *ngIf='(chartData$ | async)'>
-        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="res$ | async" [gradient]="gradient"
-          [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-          (select)="onSelect($event)">
+        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="barChartData$ | async"
+          [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
         </ngx-charts-bar-vertical>
 
       </div>
@@ -49,15 +49,15 @@
   <mat-tab label="Line Chart">
     <ng-template matTabContent>
       <div style="display: block" *ngIf='(chartData$ | async)'>
-        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="res$ | async" [gradient]="gradient"
-          [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend" [showXAxisLabel]="showXAxisLabel"
-          [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel"
-          (select)="onSelect($event)">
+        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="barChartData$ | async"
+          [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+          [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
         </ngx-charts-bar-vertical>
 
       </div>
     </ng-template>
   </mat-tab>
 </mat-tab-group>
-
-<!-- {{ (res$ | async) | json}} -->
+<!-- {{ (barChartData$ | async | json)}} -->
+{{ lineChartData$ | async | json}}

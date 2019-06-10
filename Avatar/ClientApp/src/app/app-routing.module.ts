@@ -14,7 +14,7 @@ const routes: Routes =
   [
     { path: '', component: HomeComponent, pathMatch: 'full' },
     { path: 'article', component: ListPostComponent, canActivate: [AuthGuard] },
-    { path: 'calendar', component: MonthlyCalendarComponent },
+    { path: 'calendar', component: MonthlyCalendarComponent, canActivate: [AuthGuard] },
     { path: 'viewer/:id', component: ViewPostComponent },
     { path: 'editor/:id', component: EditPostComponent },
     { path: 'editor', component: EditPostComponent },

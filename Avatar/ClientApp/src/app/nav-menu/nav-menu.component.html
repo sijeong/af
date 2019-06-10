@@ -1,3 +1,8 @@
+<!-- <pre>
+  {{auth$ | async | json}}
+</pre> -->
+
+
 <header>
   <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
     <div class="container">
@@ -15,8 +20,7 @@
             <span>log out</span>
           </button>
         </mat-menu>
-
-        <button *ngIf="(auth$ | async)" mat-icon-button [matMenuTriggerFor]="toolbarUserMenu">
+        <button *ngIf="(auth$ | async) as auth" mat-icon-button [matMenuTriggerFor]="toolbarUserMenu">
           <fa-icon icon="user-circle"></fa-icon>
         </button>
         <button mat-button mat-stroked-button color="accent" *ngIf="!(auth$ | async)" (click)="onLoginClick()">
@@ -33,21 +37,8 @@
           <li class="nav-item" [routerLinkActive]='["link-active"]'>
             <a class="nav-link text-dark" [routerLink]='["/calendar"]'>Calendar</a>
           </li>
-          <!-- <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/editor"]'>Edit</a>
-          </li> -->
-          <!-- <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/counter"]'>Counter</a>
-          </li> -->
-          <!-- <li class="nav-item" [routerLinkActive]='["link-active"]'>
-            <a class="nav-link text-dark" [routerLink]='["/fetch-data"]'>Fetch data</a>
-          </li> -->
         </ul>
-
-
       </div>
     </div>
   </nav>
-
-
 </header>

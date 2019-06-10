@@ -1,4 +1,4 @@
-<div *ngIf="auth$ | async">
+<div *ngIf="(auth$ | async) as auth">
     <div *ngIf="(res$ | async) as data" fxLayout fxLayoutAlign="space-evenly" style="background-color: lightgrey">
 
         <div fxFlex="17" fxHide.xs *ngFor="let cur of data[1]; let i = index">
@@ -21,6 +21,5 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
