@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
-import { OidcFacade } from 'ng-oidc-client';
+import { Component, Inject } from '@angular/core';
+// import { OidcFacade } from 'ng-oidc-client';
 import { AuthGuard } from '../services/auth.guard';
 import { ActivatedRoute } from '@angular/router';
+import { AuthService } from '../services/auth.service';
+import { LOCAL_STORAGE, StorageService } from 'ngx-webstorage-service';
 
 @Component({
   selector: 'app-nav-menu',
@@ -10,9 +12,11 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class NavMenuComponent {
 
-  auth$ = this.oidc.loggedIn$;
-  constructor(private oidc: OidcFacade, public guard: AuthGuard, public route: ActivatedRoute) { }
+  auth$
 
+  constructor(private authService: AuthService, public guard: AuthGuard, public route: ActivatedRoute, @Inject(LOCAL_STORAGE) private storage: StorageService) {
+    this.auth$ = this.authService.authStatus$
+  }
 
   isExpanded = false;
 
@@ -25,18 +29,15 @@ export class NavMenuComponent {
   }
 
   onLoginClick() {
-    this.oidc.signinPopup({
-      data: {
-        redirect_url: '/'
-      }
-    });
+    // this.oidc.signinPopup();
+    this.authService.login();
   }
 
   onLogoutClick() {
-    this.oidc.signoutPopup({
-      data: {
-        redirect_url: '/'
-      }
-    })
+    this.storage.set('redirect', '/');
+    // this.storage.clear();
+    // this.oidc.signoutRedirect()
+    this.authService.signout();
   }
 }
+

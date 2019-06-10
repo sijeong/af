@@ -3,19 +3,17 @@ import { HttpClient } from '@angular/common/http';
 import { SignalrService } from '../services/signalr.service';
 import { Store, select } from '@ngrx/store';
 import { selectSalesData } from '../realtime-table/store/selectors';
-import { Observable, of, interval } from 'rxjs';
+import { Observable, of, interval, from, zip } from 'rxjs';
 import { Sales } from '../models/sales';
-import { map, throttle } from 'rxjs/operators';
+import { map, throttle, groupBy, mergeMap, toArray } from 'rxjs/operators';
 import { AppState } from '../root-store';
-import { OidcFacade } from 'ng-oidc-client';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
-  auth$ = this.oidc.loggedIn$;
-  
+
   view: any[] = [800, 500];
 
   // options
@@ -34,10 +32,31 @@ export class HomeComponent implements OnInit {
 
   chartData$: Observable<Sales[]> = this.store.pipe(select(selectSalesData)).pipe(
     throttle(val => interval(5000)));
-  res$ = this.chartData$.pipe(
+  barChartData$ = this.chartData$.pipe(
     map(b => b.map(c => { return { name: c.label, value: c.data } })),
   );
 
+  lineChartData$ = this.chartData$.pipe(
+    mergeMap(res => res),
+    groupBy( sales => sales.label, p => p.data),
+    mergeMap(group => zip(of(group.key), group.pipe(toArray())))
+  )
+
+  test() {
+    const people = [
+      { name: 'Sue', age: 25 },
+      { name: 'Joe', age: 30 },
+      { name: 'Frank', age: 25 },
+      { name: 'Sarah', age: 35 }
+    ];
+
+    from(people)
+      .pipe(
+        groupBy(person => person.age, p => p.name),
+        mergeMap(group => zip(of(group.key), group.pipe(toArray())))
+      )
+
+  }
   gridApi;
   gridColumnApi;
 
@@ -49,7 +68,7 @@ export class HomeComponent implements OnInit {
   pivotPanelShow;
   rowData;
 
-  constructor(private http: HttpClient, private service: SignalrService, private store: Store<AppState>, private oidc: OidcFacade) {
+  constructor(private http: HttpClient, private service: SignalrService, private store: Store<AppState>) {
     this.columnDefs = [
       {
         headerName: "Athlete",

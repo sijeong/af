@@ -6,6 +6,7 @@ import { SignalrService } from '../services/signalr.service';
 import { selectSalesData } from './store/selectors';
 import { throttle } from 'rxjs/operators';
 import { interval } from 'rxjs';
+import { AuthService } from '../services/auth.service';
 @Component({
   selector: 'app-realtime-table',
   templateUrl: './realtime-table.component.html',
@@ -15,8 +16,10 @@ export class RealtimeTableComponent implements OnInit {
   gridOptions: GridOptions;
   initialRowDataLoads$;
   rowDataUpdates$;
-
-  constructor(private service: SignalrService, private store: Store<AppState>) { }
+  auth$
+  constructor(private service: SignalrService, private store: Store<AppState>, private authService: AuthService) { 
+    this.auth$ = this.authService.authStatus$
+  }
 
   ngOnInit() {
     this.initialRowDataLoads$ = this.service.getInitialData();

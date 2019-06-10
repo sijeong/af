@@ -7,6 +7,7 @@ import { Store, select } from '@ngrx/store';
 import { AppState } from '../root-store';
 import { selectSalesData } from '../realtime-table/store/selectors';
 import { OidcFacade } from 'ng-oidc-client';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-status-header',
@@ -14,11 +15,10 @@ import { OidcFacade } from 'ng-oidc-client';
   styleUrls: ['./status-header.component.css']
 })
 export class StatusHeaderComponent implements OnInit {
-  auth$ = this.oidc.loggedIn$;
-  
   arrowUp = faArrowUp;
   arrowDown = faArrowDown;
-
+  
+  auth$
   res$ = this.store.pipe(select(selectSalesData)).pipe(
     map(a => a.map(b => {
       return {
@@ -30,7 +30,9 @@ export class StatusHeaderComponent implements OnInit {
     throttle(val => interval(5000))
   )
 
-  constructor(private store: Store<AppState>, private oidc: OidcFacade) { }
+  constructor(private store: Store<AppState>, private authService: AuthService) { 
+    this.auth$ = this.authService.authStatus$
+  }
 
   onClick(o) {
 

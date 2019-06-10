@@ -12,8 +12,8 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { JoditAngularModule } from 'jodit-angular';
 import { AgGridModule } from 'ag-grid-angular'
 import { MatTabsModule } from '@angular/material/tabs';
-
 import { environment } from './../environments/environment';
+import { StorageServiceModule } from 'ngx-webstorage-service'
 import {
   MatIconModule,
   MatDatepickerModule,
@@ -50,11 +50,12 @@ import { CategoryPipe } from './models/category.pipe';
 import { SubCategoryPipe } from './models/sub-category.pipe';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular'
 import { NgxChartsModule } from '@swimlane/ngx-charts'
-import { NgOidcClientModule } from 'ng-oidc-client'
-import { WebStorageStateStore } from 'oidc-client';
+
+// import { WebStorageStateStore, Log } from 'oidc-client';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component'
+import { RegisterComponent } from './register/register.component';
+import { AuthCallbackComponent } from './auth-callback/auth-callback.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +71,8 @@ import { RegisterComponent } from './register/register.component'
     CategoryPipe,
     SubCategoryPipe,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AuthCallbackComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -78,7 +80,8 @@ import { RegisterComponent } from './register/register.component'
     JoditAngularModule,
     CKEditorModule,
     RootStoreModule,
-    BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    // BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    BrowserModule,
     AgGridModule.withComponents([]),
     FontAwesomeModule,
     NgxChartsModule,
@@ -100,8 +103,7 @@ import { RegisterComponent } from './register/register.component'
     StoreModule.forFeature('article', articleReducer),
     EffectsModule.forFeature([ArticleEffects]),
     StoreModule.forFeature('sales', salesReducer),
-    NgOidcClientModule.forRoot(environment.oidc_conf
-    )
+    StorageServiceModule
   ],
   providers: [
 

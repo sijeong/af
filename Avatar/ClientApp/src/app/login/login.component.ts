@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { OidcFacade } from 'ng-oidc-client';
+
 import { Router, ActivatedRoute } from '@angular/router';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,20 +10,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class LoginComponent implements OnInit {
 
-  auth$ = this.oidc.loggedIn$;
   returnUrl;
-  constructor(private oidc: OidcFacade, private route: ActivatedRoute, private router: Router) { }
+  constructor(private route: ActivatedRoute, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
-    // this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-    // console.log('///' + this.returnUrl)
+    this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    
   }
   onLoginClick() {
-    this.oidc.signinPopup({
-      data: {
-        redirect_url: this.returnUrl
-      }
-    });
+    this.authService.login();
   }
   onRegisterClick() {
     this.router.navigate(['/register'])
