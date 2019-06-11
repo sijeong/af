@@ -1,31 +1,33 @@
-<mat-tab-group>
-  <mat-tab label="Original">
-    <ng-template matTabContent>
-      <ag-grid-angular style="width:500px;height:500px;" class="ag-theme-balham" [rowData]="rd" [columnDefs]="cd1">
-      </ag-grid-angular>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Filtering">
-    <ng-template matTabContent>
-      <ag-grid-angular style="width:500px;height:500px;" class="ag-theme-balham" [rowData]="rd" [columnDefs]="cd2">
-      </ag-grid-angular>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Filtering & Sorting">
-    <ng-template matTabContent>
-      <ag-grid-angular style="width:500px;height:500px;" class="ag-theme-balham" [rowData]="rd" [columnDefs]="cd3">
-      </ag-grid-angular>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
+<div *ngIf="true">
 
-<mat-tab-group>
-  <mat-tab label="Real Time Table">
-    <ng-template matTabContent>
-      <app-realtime-table></app-realtime-table>
-    </ng-template>
-  </mat-tab>
-  <!-- <mat-tab label="Nomal">
+  <mat-tab-group>
+    <mat-tab label="Original">
+      <ng-template matTabContent>
+        <ag-grid-angular style="width:500px;height:500px;" class="ag-theme-balham" [rowData]="rd" [columnDefs]="cd1">
+        </ag-grid-angular>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Filtering">
+      <ng-template matTabContent>
+        <ag-grid-angular style="width:500px;height:500px;" class="ag-theme-balham" [rowData]="rd" [columnDefs]="cd2">
+        </ag-grid-angular>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Filtering & Sorting">
+      <ng-template matTabContent>
+        <ag-grid-angular style="width:500px;height:500px;" class="ag-theme-balham" [rowData]="rd" [columnDefs]="cd3">
+        </ag-grid-angular>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+
+  <mat-tab-group>
+    <mat-tab label="Real Time Table">
+      <ng-template matTabContent>
+        <app-realtime-table></app-realtime-table>
+      </ng-template>
+    </mat-tab>
+    <!-- <mat-tab label="Nomal">
     <ng-template matTabContent>
       <ag-grid-angular #agGrid style="width: 100%; height: 500px" id="myGrid" class="ag-theme-balham"
         [columnDefs]="columnDefs" [autoGroupColumnDef]="autoGroupColumnDef" [defaultColDef]="defaultColDef"
@@ -34,30 +36,34 @@
         [pagination]="true" [rowData]="rowData" (gridReady)="onGridReady($event)"></ag-grid-angular>
     </ng-template>
   </mat-tab> -->
-  <mat-tab label="Bar Chart">
-    <ng-template matTabContent>
-      <div style="display: block" *ngIf='(chartData$ | async)'>
-        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="barChartData$ | async"
+    <mat-tab label="Bar Chart">
+      <ng-template matTabContent>
+        <div style="display: block" *ngIf='(chartData$ | async)'>
+          <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="barChartData$ | async"
+            [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
+            [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
+          </ngx-charts-bar-vertical>
+
+        </div>
+      </ng-template>
+    </mat-tab>
+    <mat-tab label="Line Chart">
+      <ng-template matTabContent>
+
+        <ngx-charts-line-chart [view]="view" [scheme]="colorScheme" [results]="(lineChartData$ | async)"
           [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
           [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
-        </ngx-charts-bar-vertical>
+          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">>
 
-      </div>
-    </ng-template>
-  </mat-tab>
-  <mat-tab label="Line Chart">
-    <ng-template matTabContent>
-      <div style="display: block" *ngIf='(chartData$ | async)'>
-        <ngx-charts-bar-vertical [view]="view" [scheme]="colorScheme" [results]="barChartData$ | async"
-          [gradient]="gradient" [xAxis]="showXAxis" [yAxis]="showYAxis" [legend]="showLegend"
-          [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxisLabel]="xAxisLabel"
-          [yAxisLabel]="yAxisLabel" (select)="onSelect($event)">
-        </ngx-charts-bar-vertical>
+        </ngx-charts-line-chart>
 
-      </div>
-    </ng-template>
-  </mat-tab>
-</mat-tab-group>
+      </ng-template>
+    </mat-tab>
+  </mat-tab-group>
+</div>
 <!-- {{ (barChartData$ | async | json)}} -->
+<!-- {{ barChartData$ | async | json}} -->
 {{ lineChartData$ | async | json}}
+
+<!-- {{ data$ | async | json}} -->

@@ -5,7 +5,7 @@ import { Store, select } from '@ngrx/store';
 import { selectSalesData } from '../realtime-table/store/selectors';
 import { Observable, of, interval, from, zip } from 'rxjs';
 import { Sales } from '../models/sales';
-import { map, throttle, groupBy, mergeMap, toArray } from 'rxjs/operators';
+import { map, throttle, groupBy, mergeMap, toArray, concat, concatMap, bufferCount, switchMap, flatMap, combineAll } from 'rxjs/operators';
 import { AppState } from '../root-store';
 
 @Component({
@@ -31,32 +31,61 @@ export class HomeComponent implements OnInit {
   };
 
   chartData$: Observable<Sales[]> = this.store.pipe(select(selectSalesData)).pipe(
-    throttle(val => interval(5000)));
+    // throttle(val => interval(5000))
+  );
+
   barChartData$ = this.chartData$.pipe(
     map(b => b.map(c => { return { name: c.label, value: c.data } })),
   );
+  lineChartData$
+  preLineChart$ = this.chartData$.pipe(
+    map(a => a.map(b => {return {name: b.label, value: b.data, seq: b.date}})),
+    bufferCount(5)
+  ).subscribe(
+    d => this.lineChartData$ = of(d).pipe(
 
-  lineChartData$ = this.chartData$.pipe(
-    mergeMap(res => res),
-    groupBy( sales => sales.label, p => p.data),
-    mergeMap(group => zip(of(group.key), group.pipe(toArray())))
+      mergeMap(f => f),
+      mergeMap(s => s),
+      groupBy(item => item.name, i => { return { name: i.seq, value: i.value } }),
+      mergeMap(o => {
+        return o.pipe(
+          toArray(),
+          map(b => {
+            return { name: o.key, series: b }
+          })
+        )
+      }),
+      toArray()
+    )
+  )
+  data = [
+    [
+      { name: 'A', value: 5, seq: 1 }, { name: 'B', value: 7, seq: 1 }, { name: 'C', value: 2, seq: 1 }
+    ],
+    [
+      { name: 'A', value: 7, seq: 3 }, { name: 'B', value: 9, seq: 3 }, { name: 'C', value: 1, seq: 3 }
+    ],
+    [
+      { name: 'A', value: 7, seq: 5 }, { name: 'B', value: 9, seq: 5 }, { name: 'C', value: 5, seq: 5 }
+    ]
+  ]
+
+  data$ = of(this.data).pipe(
+    mergeMap(x => x),
+    mergeMap(y => y),
+    groupBy(item => item.name, i => { return { name: i.seq, value: i.value } }),
+    mergeMap(obs => {
+      return obs.pipe(
+        toArray(),
+        map(a => {
+          return { name: obs.key, series: a }
+        })
+      )
+    }),
+    toArray(),
   )
 
-  test() {
-    const people = [
-      { name: 'Sue', age: 25 },
-      { name: 'Joe', age: 30 },
-      { name: 'Frank', age: 25 },
-      { name: 'Sarah', age: 35 }
-    ];
 
-    from(people)
-      .pipe(
-        groupBy(person => person.age, p => p.name),
-        mergeMap(group => zip(of(group.key), group.pipe(toArray())))
-      )
-
-  }
   gridApi;
   gridColumnApi;
 

@@ -14,5 +14,6 @@ namespace Avatar.Models
         public int ProspectA { get; set; }
         public int ProspectB { get; set; }
         public string Label { get; set; }
+        public DateTime Date { get; set; }
     }
 }

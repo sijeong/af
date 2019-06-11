@@ -5,5 +5,6 @@ export interface Sales {
     salesB: number,
     prospectA: number,
     prospectB: number,
-    label: string
+    label: string,
+    date: string
 }
