@@ -25,12 +25,12 @@ namespace Avatar.Controllers
             this._hub = hub;
         }
 
-        [HttpGet()]
-        public async Task<ActionResult<IEnumerable<MonthlySchedule>>> GetSchedule()
-        {
-            var res = await _context.MonthlySchedule.ToListAsync();
+        //[HttpGet()]
+        //public async Task<ActionResult<IEnumerable<MonthlySchedule>>> GetSchedule()
+        //{
+        //    var res = await _context.MonthlySchedule.ToListAsync();
 
-            return res;
-        }
+        //    return res;
+        //}
     }
 }
