@@ -1,22 +1,29 @@
-<div *ngIf="(auth$ | async) as auth">
-    <div *ngIf="(res$ | async) as data" fxLayout fxLayoutAlign="space-evenly" style="background-color: lightgrey">
-
-        <div fxFlex="17" fxHide.xs *ngFor="let cur of data[1]; let i = index">
-            <div class="box" gdColumn="col 3 / span 2" gdRow="row 2" gdGap="10px" gdColumns="1fr 1fr">
-                <div class="box one" gdColumn="1 / 3" gdRow="1" (click)="onClick(cur)">{{cur.name}}</div>
-                <div class="box two" gdColumn="1" gdRow="2">{{cur.value}}</div>
-                <div class="box three" gdColumn="2" gdRow="2">
-                    <div *ngIf="cur && data[0][i]">
-                        <div *ngIf="cur.value > data[0][i].value ;else elseBlock">
-                            <mat-icon style="color:royalblue">
-                                <fa-icon [icon]="arrowUp"></fa-icon>
-                            </mat-icon>
+<div class="card has-margin-bottom-10 has-margin-top-10 is-hidden-mobile" *ngIf="(res$ | async) as data">
+    <div class="coumns is-mobile" *ngIf="data[1]">
+        <div class="level">
+            <div class="column is-1-desktop is-1-tablet" *ngFor="let cur of data[1]; let i = index">
+                <div class="is-center">{{cur.name}}</div>
+                <div class="level">
+                    <div class="level-left">
+                        <div class="level-item">
+                            <div>{{cur.value}}</div>
                         </div>
-                        <ng-template #elseBlock>
-                            <mat-icon style="color:orangered">
-                                <fa-icon [icon]="arrowDown"></fa-icon>
-                            </mat-icon>
-                        </ng-template>
+                    </div>
+                    <div class="level-right" *ngIf="cur.value && data[0][i]">
+                        <div class="level-item">
+                            <div *ngIf="cur.value > data[0][i].value ;else elseBlock">
+                                <mat-icon style="color:#00D1B2">
+                                    <fa-icon [icon]="_arrowU"></fa-icon>
+                                </mat-icon>
+                            </div>
+                            <ng-template #elseBlock>
+                                <div>
+                                    <mat-icon style="color:#FF3860">
+                                        <fa-icon [icon]="_arrowD"></fa-icon>
+                                    </mat-icon>
+                                </div>
+                            </ng-template>
+                        </div>
                     </div>
                 </div>
             </div>

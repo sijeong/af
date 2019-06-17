@@ -13,6 +13,7 @@ import {
   categoryParser,
   subCategoryParser
 } from '../models/category'
+import * as blockEditor from '@ckeditor/ckeditor5-build-balloon-block'
 @Component({
   selector: 'app-view-post',
   templateUrl: './view-post.component.html',
@@ -22,9 +23,12 @@ export class ViewPostComponent implements OnInit {
   article$ = this.store.pipe(
     select(selectSelectedArticle)
   )
+  editor = blockEditor;
+  
   constructor(private store: Store<AppState>, private router: Router) { }
 
   ngOnInit() {
+    this.editor.readonly = true;
   }
 
   delete(article: Article) {
@@ -34,5 +38,9 @@ export class ViewPostComponent implements OnInit {
 
   edit(article: Article) {
     this.router.navigate(['/editor', article.id])
+  }
+
+  goToList(){
+    this.router.navigate(['/article'])
   }
 }

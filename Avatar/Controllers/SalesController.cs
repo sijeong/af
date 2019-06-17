@@ -43,11 +43,11 @@ namespace Avatar.Controllers
                     new Sales{Id = 8, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
                     new Sales{Id = 9, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
                     new Sales{Id = 10, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
-                    new Sales{Id = 11, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
-                    new Sales{Id = 12, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
-                    new Sales{Id = 13, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
-                    new Sales{Id = 14, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
-                    new Sales{Id = 15, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
+                    //new Sales{Id = 11, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
+                    //new Sales{Id = 12, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
+                    //new Sales{Id = 13, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
+                    //new Sales{Id = 14, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
+                    //new Sales{Id = 15, Data = 1, SalesA= 1, SalesB = 1, ProspectA = 1, ProspectB = 1,Label="" },
 
             });
         }

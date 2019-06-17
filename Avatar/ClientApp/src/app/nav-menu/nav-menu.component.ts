@@ -1,5 +1,4 @@
 import { Component, Inject } from '@angular/core';
-// import { OidcFacade } from 'ng-oidc-client';
 import { AuthGuard } from '../services/auth.guard';
 import { ActivatedRoute } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -29,14 +28,11 @@ export class NavMenuComponent {
   }
 
   onLoginClick() {
-    // this.oidc.signinPopup();
     this.authService.login();
   }
 
   onLogoutClick() {
     this.storage.set('redirect', '/');
-    // this.storage.clear();
-    // this.oidc.signoutRedirect()
     this.authService.signout();
   }
 }

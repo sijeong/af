@@ -1,11 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
-@import '~@fullcalendar/core/main.css';
-@import '~@fullcalendar/daygrid/main.css';
-@import '~@fullcalendar/timegrid/main.css';
+@import "~@fullcalendar/core/main.css";
+@import "~@fullcalendar/daygrid/main.css";
+@import "~@fullcalendar/timegrid/main.css";
 
 @import "~ag-grid-community/dist/styles/ag-grid.css";
 @import "~ag-grid-community/dist/styles/ag-theme-balham.css";
 
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+/* @import "~bulma/css/bulma.css"; */
+@import "~bulma-helpers/css/bulma-helpers.css";
+@import "~bulma-pageloader/dist/css/bulma-pageloader.min.css";
+@import "~bulma-divider/dist/css/bulma-divider.min.css";
+.ck-editor__editable_inline {
+  min-height: 300px;
+  border-block-color: gray;
+}
+
+.success {
+  background: #00D1B2;
+  color: white;
+}
+.failure{
+  background: #FF3860;
+  color: white;
+}
 
 /* @import '~bootstrap/dist/css/bootstrap.min.css'; */

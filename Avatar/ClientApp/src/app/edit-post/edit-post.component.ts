@@ -45,7 +45,7 @@ export class EditPostComponent implements OnInit {
     id: [''],
     category: ['', [Validators.required]],
     subCategory: ['', [Validators.required]],
-    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]],
+    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(50)]],
     content: ['', [Validators.required, Validators.minLength(3)]],
     dateCreated: '',
     color: '',

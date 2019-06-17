@@ -7,13 +7,15 @@ import { Observable, of, interval, from, zip } from 'rxjs';
 import { Sales } from '../models/sales';
 import { map, throttle, groupBy, mergeMap, toArray, concat, concatMap, bufferCount, switchMap, flatMap, combineAll } from 'rxjs/operators';
 import { AppState } from '../root-store';
-
+import * as ck from '@ckeditor/ckeditor5-build-balloon-block'
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
 })
 export class HomeComponent implements OnInit {
 
+  public editor = ck;
+  
   view: any[] = [800, 500];
 
   // options
@@ -31,7 +33,7 @@ export class HomeComponent implements OnInit {
   };
 
   chartData$: Observable<Sales[]> = this.store.pipe(select(selectSalesData)).pipe(
-    // throttle(val => interval(5000))
+    throttle(val => interval(2000))
   );
 
   barChartData$ = this.chartData$.pipe(
@@ -208,7 +210,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.service.startHttpRequest();
+    
   }
   onSelect(data) {
     console.log('Item clicked', data);

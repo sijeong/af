@@ -21,11 +21,13 @@ import {
   MatButtonModule,
   MatNativeDateModule,
   MatInputModule,
-  MatMenuModule
+  MatMenuModule,
+  MatSnackBarModule
 } from '@angular/material';
 import { MatCardModule } from '@angular/material/card'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 // import {} from '@aspnet/signalr';
+import { reducer as snackBarReducer} from './edit-post/store/reducer'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faArrowDown,
@@ -51,11 +53,14 @@ import { SubCategoryPipe } from './models/sub-category.pipe';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular'
 import { NgxChartsModule } from '@swimlane/ngx-charts'
 
-// import { WebStorageStateStore, Log } from 'oidc-client';
 import { AppRoutingModule } from './app-routing.module';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component'
+
+
+import { EditorModule } from '@tinymce/tinymce-angular'
+import { SnackbarEffects } from './edit-post/store/effects';
 @NgModule({
   declarations: [
     AppComponent,
@@ -78,6 +83,7 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component'
     BrowserAnimationsModule,
     FullCalendarModule,
     JoditAngularModule,
+    EditorModule,
     CKEditorModule,
     RootStoreModule,
     // BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -88,7 +94,7 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component'
     HttpClientModule,
     FormsModule,
     MatMenuModule,
-
+    MatSnackBarModule,
     MatCardModule,
     MatDatepickerModule,
     MatSelectModule,
@@ -101,8 +107,10 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component'
     MatIconModule,
     AppRoutingModule,
     StoreModule.forFeature('article', articleReducer),
-    EffectsModule.forFeature([ArticleEffects]),
+    StoreModule.forFeature('snackbar', snackBarReducer),
     StoreModule.forFeature('sales', salesReducer),
+    EffectsModule.forFeature([ArticleEffects, SnackbarEffects]),
+    
     StorageServiceModule
   ],
   providers: [

@@ -1,14 +1,126 @@
-<body>
-  <app-nav-menu></app-nav-menu>
-
-  <div class="container">
-    <div class="row">
-      <div style="display:none ">{{auth$ | async}}</div>
-      <app-status-header></app-status-header>
+<!-- <app-nav-menu></app-nav-menu> -->
+<!-- <div class="pageloader"><span class="title">Pageloader</span></div> -->
+<!-- <div class="has-background-light"> -->
+<nav class="navbar has-shadow is-fixed-top ">
+  <div class="container ">
+    <div class="navbar-brand">
+      <a class="navbar-item" [routerLink]="['/']">
+        <!-- <img src="../assets/avatar.png"> -->
+        Avatar Admin
+      </a>
+      <div class="navbar-burger burder" #burger (click)="toggleNavbar()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+    <div class="navbar-menu">
+      <div class="navbar-start">
+        <div class="navbar-item">
+          <small>.</small>
+        </div>
+      </div>
+      <div class="navbar-end">
+        <div class="is-divider" data-content="placeholder for header functions"></div>
+        <a class="navbar-item" *ngIf="!(auth$ | async)">
+          <div>
+            <a class="button" (click)="onLoginClick()">Login</a>
+          </div>
+        </a>
+        <a class="navbar-item" *ngIf="(auth$ | async)">
+          <div>
+            <a [routerLink]="['/profile']" [routerLinkActive]='["is-active"]'>
+              <span class="icon ">
+                <fa-icon [icon]="_userCircle"></fa-icon>
+              </span>
+              Profile
+            </a>
+          </div>
+        </a>
+        <a class="navbar-item" *ngIf="(auth$ | async)" (click)="onLogoutClick()">
+          <div>
+            <span class="icon is-large ">
+              <fa-icon [icon]="_signOut"></fa-icon>
+            </span>
+            Sign Out
+          </div>
+        </a>
+      </div>
     </div>
   </div>
+</nav>
 
-  <div class="container">
-    <router-outlet></router-outlet>
+<div class="container has-margin-top-20">
+  <div class="columns">
+    <div class="column is-2-desktop">
+      <nav class="menu is-hidden-mobile" #menu>
+
+        <div class="card is-marginless has-height-70 has-margin-top-10">
+          <div class="level">
+            <div class="tile">
+              Company Logo
+            </div>
+          </div>
+        </div>
+        <p class="menu-label">
+
+        </p>
+        <ul class="menu-list">
+          <li>
+            <a [routerLink]="['/home']" [routerLinkActive]="['is-active']" (click)="toggleNavbar()">
+              <span class="icon">
+                <fa-icon [icon]="_home"></fa-icon>
+              </span>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/article']" [routerLinkActive]="['is-active']" (click)="toggleNavbar()">
+              <span class="icon">
+                <fa-icon [icon]="_article"></fa-icon>
+              </span>
+              Article
+            </a>
+          </li>
+          <li>
+            <a [routerLink]="['/calendar']" [routerLinkActive]="['is-active']" (click)="toggleNavbar()">
+              <span class="icon">
+                <fa-icon [icon]="_calender"></fa-icon>
+              </span>
+              Calendar
+            </a>
+          </li>
+          <!-- <li>
+            <a [routerLink]="['/template']" [routerLinkActive]='["is-active"]'>
+              <span class="icon">
+                <fa-icon [icon]="_pages"></fa-icon>
+              </span>
+              Pages
+            </a>
+          </li> -->
+        </ul>
+      </nav>
+    </div>
+    <div class="column">
+      <app-status-header></app-status-header>
+
+      <div class="is-fullheight">
+
+
+        <router-outlet></router-outlet>
+
+      </div>
+    </div>
   </div>
-</body>
+</div>
+<nav class="navbar is-fixed-bottom is-bordered">
+  <div class="container">
+    <div class="navbar-end">
+      <div class="is-divider" data-content="placeholder for quick menues"></div>
+      <a class="navbar-item">
+        Command 1
+      </a>
+    </div>
+  </div>
+</nav>
+<!-- </div> -->

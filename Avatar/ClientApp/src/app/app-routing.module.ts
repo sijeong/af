@@ -13,6 +13,7 @@ import { AuthCallbackComponent } from "./auth-callback/auth-callback.component";
 const routes: Routes =
   [
     { path: '', component: HomeComponent, pathMatch: 'full' },
+    { path: 'home', component: HomeComponent },
     { path: 'article', component: ListPostComponent, canActivate: [AuthGuard] },
     { path: 'calendar', component: MonthlyCalendarComponent, canActivate: [AuthGuard] },
     { path: 'viewer/:id', component: ViewPostComponent },

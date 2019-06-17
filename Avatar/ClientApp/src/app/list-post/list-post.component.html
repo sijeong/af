@@ -1,16 +1,49 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
+<div class="card has-margin-bottom-10">
+  <header class="card-header">
+    <p class="card-header-title">
+      Inventory Search
+    </p>
+    <a href="#" class="card-header-icon" aria-label="more options">
+      <span class="icon">
+        <i class="fa fa-angle-down" aria-hidden="true"></i>
+      </span>
+    </a>
+  </header>
+  <div class="card-content">
+    <div class="content">
+      <div class="control has-icons-left has-icons-right">
+        <input class="input" type="text" placeholder="">
+        <span class="icon is-medium is-left">
+          <i class="fa fa-search"></i>
+        </span>
+        <span class="icon is-medium is-right">
+          <i class="fa fa-check"></i>
+        </span>
+      </div>
+    </div>
+  </div>
+</div>
 
-</form>
-<ag-grid-angular #agGrid style="width: 100%; height: 500px" id="myGrid" class="ag-theme-balham"
-  [columnDefs]="columnDefs" [suppressRowClickSelection]="true" [groupSelectsChildren]="true" [debug]="true"
-  [rowSelection]="rowSelection" [gridOptions]="gridOptions" [enableRangeSelection]="true" [pagination]="true"
-  [rowData]="articles$ | async">
+<section class="hero">
+  <form [formGroup]="form" (ngSubmit)="submit()">
 
-</ag-grid-angular>
+  </form>
+  <ag-grid-angular #agGrid style="height: 500px" id="myGrid" class="ag-theme-balham" [columnDefs]="columnDefs"
+    [suppressRowClickSelection]="true" [groupSelectsChildren]="true" [debug]="true" [rowSelection]="rowSelection"
+    [gridOptions]="gridOptions" [enableRangeSelection]="true" [pagination]="true" [rowData]="articles$ | async">
 
-<button mat-button (click)="delete()">Delete</button>
-<button mat-button (click)="create()">Create</button>
+  </ag-grid-angular>
 
-<pre>
-    {{ articles$ | async | json}}
-</pre>
+</section>
+
+<div class="level has-margin-top-20">
+  <div class="level-left"></div>
+  <div class="level-right">
+    <div class="level-item">
+      <button class="button is-danger" (click)="delete()">Delete</button>
+    </div>
+    <div class="level-item">
+      <button class="button is-primary" (click)="create()">Create</button>
+    </div>
+  </div>
+</div>

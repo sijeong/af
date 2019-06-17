@@ -24,7 +24,7 @@ export class RealtimeTableComponent implements OnInit {
   ngOnInit() {
     this.initialRowDataLoads$ = this.service.getInitialData();
     this.rowDataUpdates$ = this.store.pipe(select(selectSalesData)).pipe(
-      throttle(val => interval(5000))
+      // throttle(val => interval(5000))
     );
     this.gridOptions = <GridOptions>{
       enableRangeSelection: true,

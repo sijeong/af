@@ -1,7 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { OidcFacade } from 'ng-oidc-client';
+
 import { switchMap, take, map, tap } from 'rxjs/operators';
 import { AsyncPipe } from '@angular/common';
 import { Store, select } from '@ngrx/store';

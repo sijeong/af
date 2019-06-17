@@ -1,76 +1,81 @@
-<div fxLayout="column" *ngIf="article$ | async as article">
-  <div fxFlex="30">30</div>
-  <div fxFlex="70">
-    <div fxFlex="40">Category</div>
-    <div fxFlex="20">{{article.category | category}}</div>
-    <div fxFlex="40">SubCategory</div>
-    <div fxFlex="20">{{article.subCategory | subCategory}}</div>
+<div class="is-fullheight-with-navbar" *ngIf="article$ | async as selectedArticle">
+  <div class="card has-padding-left-10 has-margin-top-30">
+    <div class="columns">
+      <div class="column has-background-white">
+        <strong>Category</strong>
+      </div>
+      <div class="column">
+        {{ selectedArticle.category | category}}
+      </div>
+      <div class="column has-background-white">
+        <strong> Category</strong>
+      </div>
+      <div class="column">
+        {{selectedArticle.subCategory | subCategory}}
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column has-background-white">
+        <strong>Date</strong>
+      </div>
+      <div class="column">
+        {{ selectedArticle.dateCreated}}
+      </div>
+      <div class="column has-background-white">
+        <strong>View</strong>
+      </div>
+      <div class="column">
+        {{selectedArticle.viewCount}}
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-3 has-background-white">
+        <strong> Title</strong>
+      </div>
+      <div class="column is-9">
+        {{ selectedArticle.title}}
+      </div>
+    </div>
+    <div class="columns">
+      <div class="column is-3 has-background-white">
+        <strong> Content</strong>
+      </div>
+      <div class="column is-9 has-height-350">
+        <!-- <mat-tab-group>
+          <mat-tab label="Unstyled">
+            {{ selectedArticle.content}}
+          </mat-tab>
+          <mat-tab label="Styled">
+            <div class="content">
+              <ckeditor #description readonly="true" skin="moono-lisa" data="selectedArticle.content" [editor]="editor"></ckeditor>
+            </div>
+          </mat-tab>
+        </mat-tab-group> -->
+        {{ selectedArticle.content}}
+      </div>
+    </div>
   </div>
-  <div fxFlex="70">
-    <div fxFlex="40">Title</div>
-    <div fxFlex="20">{{article.Title}}</div>
-  </div>
-  <div fxFlex="70">
-    <div fxFlex="40">Content</div>
-    <div fxFlex="20">{{article.Content  }}</div>
-  </div>
-</div>
 
+  <div class="level has-margin-top-20 has-background-light">
+    <div class="level-left">
+      <div class="level-item">
+        <button class="button is-primary " (click)="goToList()">
+          Go to List
+        </button>
+      </div>
+    </div>
+    <div class="level-right">
 
-
-<div class="container" rtl>
-  <div class="row">
-    <div class="col-md-12">
-      <div class="container" *ngIf="article$ | async as selectedArticle">
-        <div class="row">
-          <div class="col">
-            Category
-          </div>
-          <div class="col">
-            {{selectedArticle.category | category}}
-          </div>
-          <div class="col">
-            SubCategory
-          </div>
-          <div class="col">
-            {{selectedArticle.subCategory | subCategory}}
-          </div>
-
-        </div>
-        <div class="row">
-          <div class="col">
-            Title
-          </div>
-          <div class="col">
-            {{selectedArticle.title}}
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            Content
-          </div>
-          <div class="col">
-            {{selectedArticle.content}}
-          </div>
-        </div>
-        <div class="row">
-          <span class="d-flex justify-content-end">
-            <span>
-              <button mat-button color="accent" *ngIf="!isEditing" (click)="edit(selectedArticle)"
-                data-testid="edit-crud">
-                EDIT
-              </button>
-              <button mat-button color="warn" (click)="delete(selectedArticle)" data-testid="delete-crud">
-                DELETE
-              </button>
-            </span>
-          </span>
-        </div>
+      <div class="level-item">
+        <button class="button is-danger " (click)="delete(selectedArticle)">
+          DELETE
+        </button>
+      </div>
+      <div class="level-item">
+        <button class="button is-primary " *ngIf="!isEditing" (click)="edit(selectedArticle)">
+          EDIT
+        </button>
       </div>
     </div>
   </div>
 </div>
-
-<pre>
-  {{ article$ | async | json}}
-</pre>

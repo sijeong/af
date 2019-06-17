@@ -1,9 +1,53 @@
-<!-- <pre>
-  {{auth$ | async | json}}
-</pre> -->
-
-
-<header>
+<nav class="navbar has-shadow">
+  <div class="navbar-brand">
+    <a class="navbar-item" [routerLink]="['/']">
+      <img src="../../assets/avatar.png">
+    </a>
+    <div class="navbar-buger">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start">
+      <div class="navbar-item">
+        <div class="navbar-link">
+          .....
+        </div>
+      </div>
+    </div>
+    <div class="navbar-end">
+      <div class="navbar-item">
+        <div class="navbar-link">
+          .....
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+<section>
+  <div class="columns">
+    <div class="column is-3-desktop">
+      <nav class="menu">
+        <p class="menu-label">
+          AAA
+        </p>
+        <ul class="menu-list">
+          <li>
+            <a [routerLink]="" [routerLinkActive]="['is-active']">
+              <span class="icon">
+                <fa-icon [icon]=""></fa-icon>
+              </span>
+              AAAA
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</section>
+<!-- <header>
   <nav class='navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3'>
     <div class="container">
       <a class="navbar-brand" [routerLink]='["/"]'>Avatar</a>
@@ -41,4 +85,4 @@
       </div>
     </div>
   </nav>
-</header>
+</header> -->
