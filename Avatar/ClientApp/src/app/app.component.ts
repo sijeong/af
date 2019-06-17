@@ -6,6 +6,9 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { SignalrService } from './services/signalr.service';
 import { StorageService, LOCAL_STORAGE } from 'ngx-webstorage-service';
+import { AppState } from './root-store';
+import { Store, select } from '@ngrx/store';
+import { selectAllCommands } from './setting/store/command.reducer';
 
 @Component({
   selector: 'app-root',
@@ -24,9 +27,12 @@ export class AppComponent implements OnInit {
   _home = faHome;
 
   auth$
-
-  constructor(private router: Router, private route: ActivatedRoute, @Inject(LOCAL_STORAGE) private storage: StorageService, private authService: AuthService, private service: SignalrService) {
-    this.auth$ = this.authService.authStatus$
+  cmds$
+  constructor(private router: Router, private store: Store<AppState>, private route: ActivatedRoute, @Inject(LOCAL_STORAGE) private storage: StorageService, private authService: AuthService, private service: SignalrService) {
+    this.auth$ = this.authService.authStatus$;
+    this.cmds$ = this.store.pipe(
+      select(selectAllCommands)
+    )
   }
 
   toggleNavbar() {

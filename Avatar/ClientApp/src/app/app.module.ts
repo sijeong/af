@@ -27,7 +27,8 @@ import {
 import { MatCardModule } from '@angular/material/card'
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome'
 // import {} from '@aspnet/signalr';
-import { reducer as snackBarReducer} from './edit-post/store/reducer'
+import { reducer as snackBarReducer } from './edit-post/store/reducer'
+import {reducer as commandReduder} from './setting/store/command.reducer'
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
   faArrowDown,
@@ -61,6 +62,9 @@ import { AuthCallbackComponent } from './auth-callback/auth-callback.component'
 
 import { EditorModule } from '@tinymce/tinymce-angular'
 import { SnackbarEffects } from './edit-post/store/effects';
+import { SettingComponent } from './setting/setting.component';
+import { DragDropModule } from '@angular/cdk/drag-drop'
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +81,8 @@ import { SnackbarEffects } from './edit-post/store/effects';
     SubCategoryPipe,
     LoginComponent,
     RegisterComponent,
-    AuthCallbackComponent
+    AuthCallbackComponent,
+    SettingComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -87,6 +92,7 @@ import { SnackbarEffects } from './edit-post/store/effects';
     CKEditorModule,
     RootStoreModule,
     // BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
+    DragDropModule,
     BrowserModule,
     AgGridModule.withComponents([]),
     FontAwesomeModule,
@@ -109,8 +115,9 @@ import { SnackbarEffects } from './edit-post/store/effects';
     StoreModule.forFeature('article', articleReducer),
     StoreModule.forFeature('snackbar', snackBarReducer),
     StoreModule.forFeature('sales', salesReducer),
+    StoreModule.forFeature('command', commandReduder ),
     EffectsModule.forFeature([ArticleEffects, SnackbarEffects]),
-    
+
     StorageServiceModule
   ],
   providers: [

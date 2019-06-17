@@ -90,6 +90,14 @@
               Calendar
             </a>
           </li>
+          <li>
+            <a [routerLink]="['/setting']" [routerLinkActive]="['is-active']" (click)="toggleNavbar()">
+              <span class="icon">
+                <!-- <fa-icon [icon]="_calender"></fa-icon> -->
+              </span>
+              Setting
+            </a>
+          </li>
           <!-- <li>
             <a [routerLink]="['/template']" [routerLinkActive]='["is-active"]'>
               <span class="icon">
@@ -117,8 +125,8 @@
   <div class="container">
     <div class="navbar-end">
       <div class="is-divider" data-content="placeholder for quick menues"></div>
-      <a class="navbar-item">
-        Command 1
+      <a *ngFor="let c of (cmds$ | async)" class="navbar-item" [routerLink]="c.data">
+        {{c.data}}
       </a>
     </div>
   </div>

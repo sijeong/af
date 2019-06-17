@@ -1,0 +1,26 @@
+<div class="example-container">
+  <h2>Routes</h2>
+
+  <div cdkDropList #routesList="cdkDropList" [cdkDropListData]="routes" [cdkDropListConnectedTo]="[commandsList]"
+    class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of routes" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<div class="example-container">
+  <h2>Commands</h2>
+
+  <div cdkDropList #commandsList="cdkDropList" [cdkDropListData]="commands" [cdkDropListConnectedTo]="[routesList]"
+    class="example-list" (cdkDropListDropped)="drop($event)">
+    <div class="example-box" *ngFor="let item of commands" cdkDrag>{{item}}</div>
+  </div>
+</div>
+
+<div class="level">
+  <div class="level-left"></div>
+  <div class="level-right">
+    <div class="level-item">
+      <button class="button is-primary" (click)="save()">Save</button>
+    </div>
+  </div>
+</div>
